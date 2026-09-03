@@ -1,61 +1,552 @@
-<!doctype html>
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Jianghu Archive — community guides, builds, equipment, combat systems and progression.">
-  <title>Jianghu Archive — Game Wiki</title>
-  <link rel="stylesheet" href="./assets/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jianghu Archive</title>
+<meta name="description" content="A Where Winds Meet style guide and wiki hub.">
+<style>
+:root{
+  --bg:#0b0c0f;
+  --panel:#121419;
+  --panel2:#171a20;
+  --line:#2a2e37;
+  --text:#f1eee7;
+  --muted:#a6a8b0;
+  --accent:#b9955a;
+  --accent2:#e0c690;
+  --danger:#d46a6a;
+  --shadow:0 14px 40px rgba(0,0,0,.34);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 70% -10%, rgba(185,149,90,.10), transparent 30rem),
+    linear-gradient(180deg,#090a0c 0%,#0c0e12 100%);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.topbar{
+  position:sticky;top:0;z-index:30;
+  height:68px;
+  display:flex;align-items:center;gap:18px;
+  padding:0 22px;
+  background:rgba(10,11,14,.92);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  display:flex;align-items:center;gap:11px;
+  min-width:max-content;font-weight:800;letter-spacing:.12em;
+}
+.brand-mark{
+  width:34px;height:34px;border:1px solid #5f5137;border-radius:50%;
+  display:grid;place-items:center;color:var(--accent2);
+  background:linear-gradient(145deg,#191a18,#0c0d0f);
+}
+.topnav{display:flex;gap:6px;align-items:center;overflow:auto}
+.topnav a{
+  padding:10px 12px;color:#c9c8c4;border-radius:8px;font-size:14px;
+}
+.topnav a:hover{background:#181b21;color:white}
+.search-wrap{margin-left:auto;position:relative;width:min(330px,35vw)}
+.search{
+  width:100%;background:#15181e;border:1px solid #30343d;color:#eee;
+  border-radius:9px;padding:11px 13px 11px 38px;outline:none;
+}
+.search:focus{border-color:#76613f}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#888}
+.search-results{
+  display:none;position:absolute;top:48px;left:0;right:0;
+  border:1px solid #333741;background:#111319;border-radius:10px;
+  overflow:hidden;box-shadow:var(--shadow);
+}
+.search-results.show{display:block}
+.search-item{display:block;padding:12px 13px;border-bottom:1px solid #252933}
+.search-item:last-child{border-bottom:0}
+.search-item:hover{background:#1a1d24}
+.search-item b{display:block;font-size:14px}
+.search-item span{font-size:12px;color:var(--muted)}
+.menu-btn{display:none;background:none;border:0;color:white;font-size:25px}
+.layout{
+  display:grid;grid-template-columns:240px minmax(0,1fr) 255px;
+  max-width:1500px;margin:0 auto;
+}
+.sidebar{
+  min-height:calc(100vh - 68px);
+  border-right:1px solid var(--line);
+  padding:24px 15px;
+  position:sticky;top:68px;height:calc(100vh - 68px);overflow:auto;
+}
+.side-title{
+  color:#767a84;font-size:11px;font-weight:800;letter-spacing:.15em;
+  margin:20px 10px 9px;
+}
+.side-title:first-child{margin-top:0}
+.side-link{
+  display:flex;align-items:center;gap:10px;padding:10px 11px;
+  border-radius:8px;color:#c1c3c9;font-size:14px;margin:2px 0;
+}
+.side-link:hover,.side-link.active{background:#191c22;color:#fff}
+.side-dot{width:6px;height:6px;border-radius:50%;background:#665a43}
+.main{padding:28px 30px 60px;min-width:0}
+.rightbar{
+  min-height:calc(100vh - 68px);border-left:1px solid var(--line);
+  padding:26px 18px;position:sticky;top:68px;height:calc(100vh - 68px);overflow:auto;
+}
+.hero{
+  position:relative;overflow:hidden;
+  border:1px solid #302d27;border-radius:15px;
+  min-height:310px;padding:44px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background:
+    linear-gradient(90deg,rgba(8,9,11,.96),rgba(8,9,11,.5)),
+    radial-gradient(circle at 78% 35%,rgba(207,168,97,.24),transparent 21rem),
+    linear-gradient(135deg,#16130e,#0b0c0f 58%);
+  box-shadow:var(--shadow);
+}
+.hero:after{
+  content:"江湖";
+  position:absolute;right:7%;top:8%;
+  font-family:serif;font-weight:800;
+  font-size:clamp(90px,14vw,220px);color:rgba(255,255,255,.035);
+}
+.kicker{
+  color:var(--accent2);font-size:12px;letter-spacing:.22em;font-weight:800;
+  text-transform:uppercase;margin-bottom:10px;
+}
+.hero h1{font-family:Georgia,serif;font-size:clamp(40px,6vw,78px);line-height:.98;margin:0 0 16px;max-width:800px}
+.hero p{max-width:680px;color:#bebcb6;line-height:1.7;margin:0;font-size:16px}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:34px 0 15px}
+.section-head h2{font-family:Georgia,serif;font-size:27px;margin:0}
+.section-head span{font-size:13px;color:#858891}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.card{
+  background:linear-gradient(180deg,#15181e,#111318);
+  border:1px solid #292d35;border-radius:11px;padding:20px;
+  min-height:145px;transition:.17s ease;cursor:pointer;
+}
+.card:hover{transform:translateY(-2px);border-color:#514631;background:#181b21}
+.card-icon{
+  width:38px;height:38px;border:1px solid #4d4330;color:var(--accent2);
+  border-radius:8px;display:grid;place-items:center;margin-bottom:17px;font-size:18px;
+}
+.card h3{margin:0 0 7px;font-size:17px}
+.card p{color:#9599a2;font-size:13px;line-height:1.55;margin:0}
+.article-list{display:grid;gap:9px}
+.article-row{
+  display:flex;align-items:center;gap:14px;padding:15px;
+  border:1px solid #292d35;border-radius:10px;background:#121419;cursor:pointer;
+}
+.article-row:hover{border-color:#4b4334;background:#15181e}
+.article-row .num{
+  width:38px;height:38px;display:grid;place-items:center;border-radius:8px;
+  background:#1d2027;color:#92836b;font-weight:800;font-size:12px;
+}
+.article-row h3{margin:0 0 4px;font-size:15px}
+.article-row p{margin:0;color:#8f929a;font-size:12px}
+.widget{border:1px solid #292d35;border-radius:10px;background:#111318;margin-bottom:16px}
+.widget h3{
+  margin:0;padding:13px 14px;border-bottom:1px solid #292d35;
+  font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:#c5b089;
+}
+.widget-body{padding:9px}
+.widget-link{display:block;padding:9px;border-radius:7px;color:#b8bac1;font-size:13px}
+.widget-link:hover{background:#191c22;color:white}
+.patch{padding:13px}
+.patch strong{font-size:13px}
+.patch p{color:#92959d;font-size:12px;line-height:1.55;margin:7px 0 0}
+.page{display:none}
+.page.active{display:block}
+.breadcrumbs{color:#777b84;font-size:12px;margin:2px 0 16px}
+.breadcrumbs span{color:#b69a68}
+.article-shell{
+  border:1px solid #292d35;border-radius:12px;background:#111318;overflow:hidden;
+}
+.article-header{
+  padding:34px 36px;border-bottom:1px solid #292d35;
+  background:linear-gradient(140deg,#181a1f,#111318);
+}
+.article-label{color:#b99d6b;text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.17em}
+.article-title{font-family:Georgia,serif;font-size:45px;margin:8px 0 11px}
+.article-desc{color:#aaadb4;line-height:1.65;max-width:800px}
+.article-content{padding:30px 36px;line-height:1.75;color:#d4d2cc}
+.article-content h2{font-family:Georgia,serif;font-size:27px;margin:35px 0 12px;color:#f0ede6}
+.article-content h2:first-child{margin-top:0}
+.article-content h3{margin-top:25px}
+.article-content p{color:#c0c0bd}
+.article-content ul{padding-left:22px;color:#bfc1c6}
+.article-content li{margin:7px 0}
+.note{
+  border-left:3px solid var(--accent);background:#171a1f;
+  padding:14px 16px;margin:18px 0;color:#bfc1c6;border-radius:0 8px 8px 0;
+}
+.toc{
+  border:1px solid #2b2f37;background:#15171c;border-radius:9px;
+  padding:16px 18px;margin:18px 0;
+}
+.toc strong{display:block;margin-bottom:7px}
+.toc a{display:block;color:#aaaeb6;font-size:13px;padding:4px 0}
+.back-btn{
+  display:inline-flex;align-items:center;gap:7px;color:#aeb0b6;font-size:13px;
+  margin-bottom:14px;cursor:pointer;
+}
+.footer{
+  border-top:1px solid #242831;color:#72757d;font-size:12px;
+  margin-top:45px;padding:25px 0;
+}
+.mobile-overlay{display:none}
+
+@media(max-width:1100px){
+  .layout{grid-template-columns:220px minmax(0,1fr)}
+  .rightbar{display:none}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .topbar{height:61px;padding:0 13px}
+  .brand span{display:none}
+  .topnav{display:none}
+  .menu-btn{display:block}
+  .search-wrap{width:auto;flex:1}
+  .layout{display:block}
+  .sidebar{
+    position:fixed;left:-270px;top:61px;z-index:50;width:255px;
+    height:calc(100vh - 61px);background:#0d0f13;transition:.2s ease;
+  }
+  .sidebar.open{left:0}
+  .mobile-overlay{
+    display:none;position:fixed;inset:61px 0 0;background:rgba(0,0,0,.62);z-index:40
+  }
+  .mobile-overlay.show{display:block}
+  .main{padding:18px 14px 45px}
+  .hero{min-height:270px;padding:27px 23px}
+  .hero h1{font-size:42px}
+  .grid{grid-template-columns:1fr}
+  .article-header,.article-content{padding:25px 21px}
+  .article-title{font-size:35px}
+}
+</style>
 </head>
-<body data-root=".">
-<header class="site-header">
-  <button class="menu-btn" data-menu aria-label="Open navigation">☰</button>
-  <a class="brand" href="./index.html"><span class="brand-mark"><span>武</span></span><span class="brand-name">JIANGHU ARCHIVE</span></a>
-  <nav class="top-nav"><a href="./index.html">Wiki</a><a href="./categories/builds.html">Builds</a><a href="./categories/equipment.html">Equipment</a><a href="./categories/inner-ways.html">Inner Ways</a></nav>
-  <div class="header-spacer"></div>
-  <div class="search-shell"><input data-search type="search" placeholder="Search guides, gear, skills…" aria-label="Search wiki"><span class="search-icon">⌕</span><div class="search-results" data-search-results></div></div>
+<body>
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  <a class="brand" href="#home">
+    <div class="brand-mark">剑</div>
+    <span>JIANGHU ARCHIVE</span>
+  </a>
+  <nav class="topnav">
+    <a href="#home">Home</a>
+    <a href="#equipment">Equipment</a>
+    <a href="#combat">Combat</a>
+    <a href="#builds">Builds</a>
+    <a href="#world">World</a>
+  </nav>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input id="search" class="search" placeholder="Search guides..." autocomplete="off">
+    <div id="searchResults" class="search-results"></div>
+  </div>
 </header>
 
+<div class="mobile-overlay" id="overlay"></div>
+
 <div class="layout">
-  <aside class="sidebar"><div class="sidebar-inner">
-    <div class="nav-section"><div class="nav-label">Explore</div><a class="side-link active" href="./index.html"><span class="side-icon">⌂</span>Home</a><a class="side-link" href="./guides/beginner-guide.html"><span class="side-icon">✦</span>Beginner Guide</a></div>
-    <div class="nav-section"><div class="nav-label">Equipment</div><a class="side-link" href="./categories/weapons.html"><span class="side-icon">⚔</span>Weapons</a><a class="side-link" href="./categories/equipment.html"><span class="side-icon">◇</span>Armor & Gear</a><a class="side-link" href="./guides/gear-progression.html"><span class="side-icon">↟</span>Gear Progression</a></div>
-    <div class="nav-section"><div class="nav-label">Combat</div><a class="side-link" href="./categories/inner-ways.html"><span class="side-icon">◎</span>Inner Ways</a><a class="side-link" href="./categories/mystic-skills.html"><span class="side-icon">✧</span>Mystic Skills</a><a class="side-link" href="./categories/builds.html"><span class="side-icon">☷</span>Builds</a></div>
-    <div class="nav-section"><div class="nav-label">Community</div><a class="side-link" href="./guides/guilds.html"><span class="side-icon">♜</span>Guilds</a></div>
-  </div></aside>
+  <aside class="sidebar" id="sidebar">
+    <div class="side-title">GETTING STARTED</div>
+    <a class="side-link" href="#beginner"><span class="side-dot"></span> Beginner Guide</a>
+    <a class="side-link" href="#progression"><span class="side-dot"></span> Progression</a>
 
-  <main class="content">
-    <section class="hero">
-      <div class="hero-content"><div class="eyebrow">Community knowledge base</div><h1>Walk the Jianghu.<br>Know the way.</h1><p>A clean, searchable home for progression guides, equipment, builds, combat systems and community discoveries.</p><div class="hero-actions"><a class="btn" href="./guides/beginner-guide.html">Start Here</a><a class="btn secondary" href="#browse">Browse the Wiki</a></div></div>
+    <div class="side-title">EQUIPMENT</div>
+    <a class="side-link" href="#equipment"><span class="side-dot"></span> Equipment Overview</a>
+    <a class="side-link" href="#weapons"><span class="side-dot"></span> Weapons</a>
+    <a class="side-link" href="#armor"><span class="side-dot"></span> Armor Sets</a>
+    <a class="side-link" href="#gear-progression"><span class="side-dot"></span> Gear Progression</a>
+
+    <div class="side-title">COMBAT</div>
+    <a class="side-link" href="#combat"><span class="side-dot"></span> Combat Overview</a>
+    <a class="side-link" href="#inner-ways"><span class="side-dot"></span> Inner Ways</a>
+    <a class="side-link" href="#mystic-skills"><span class="side-dot"></span> Mystic Skills</a>
+    <a class="side-link" href="#builds"><span class="side-dot"></span> Builds</a>
+
+    <div class="side-title">JIANGHU</div>
+    <a class="side-link" href="#guilds"><span class="side-dot"></span> Guilds</a>
+    <a class="side-link" href="#sects"><span class="side-dot"></span> Sects</a>
+    <a class="side-link" href="#regions"><span class="side-dot"></span> Regions</a>
+  </aside>
+
+  <main class="main">
+    <section class="page active" data-page="home">
+      <div class="hero">
+        <div class="kicker">Where Winds Meet Guide Database</div>
+        <h1>Walk the Jianghu.<br>Know the way.</h1>
+        <p>A community guide archive for progression, combat, equipment, exploration, guild systems and everything needed to master the Jianghu.</p>
+      </div>
+
+      <div class="section-head"><h2>Explore the Wiki</h2><span>Core guide categories</span></div>
+      <div class="grid">
+        <div class="card" data-go="equipment"><div class="card-icon">◇</div><h3>Equipment</h3><p>Gear progression, armor sets, upgrading, Arsenal and late-game optimization.</p></div>
+        <div class="card" data-go="combat"><div class="card-icon">⚔</div><h3>Combat</h3><p>Inner Ways, Mystic Skills, weapon synergies and combat fundamentals.</p></div>
+        <div class="card" data-go="builds"><div class="card-icon">✦</div><h3>Builds</h3><p>Recommended setups for PvE, PvP, bosses and specialized playstyles.</p></div>
+        <div class="card" data-go="weapons"><div class="card-icon">刀</div><h3>Weapons</h3><p>Weapon types, pairings, strengths and commonly used combinations.</p></div>
+        <div class="card" data-go="world"><div class="card-icon">山</div><h3>World</h3><p>Regions, exploration, activities, bosses, outposts and discoveries.</p></div>
+        <div class="card" data-go="guilds"><div class="card-icon">盟</div><h3>Guilds & Social</h3><p>Guild benefits, partnerships, disciples and group progression.</p></div>
+      </div>
+
+      <div class="section-head"><h2>Featured Guides</h2><span>Starter articles</span></div>
+      <div class="article-list">
+        <div class="article-row" data-go="beginner"><div class="num">01</div><div><h3>Beginner Progression Guide</h3><p>What to prioritize when starting and how to avoid wasting resources.</p></div></div>
+        <div class="article-row" data-go="gear-progression"><div class="num">02</div><div><h3>Gear Progression</h3><p>How equipment progression works from early game to late game.</p></div></div>
+        <div class="article-row" data-go="guilds"><div class="num">03</div><div><h3>Why Join a Guild?</h3><p>Guild, partnership and disciple benefits explained.</p></div></div>
+      </div>
+      <div class="footer">Jianghu Archive · Community-made guide template</div>
     </section>
 
-    <section class="section" id="browse"><div class="section-head"><div><h2>Browse the Wiki</h2><div class="section-sub">Jump directly into the system you need.</div></div></div>
-      <div class="card-grid">
-        <a class="category-card" data-symbol="劍" href="./categories/weapons.html"><span class="category-icon">⚔</span><h3>Weapons</h3><p>Weapon types, martial arts, pairings, roles and progression.</p></a>
-        <a class="category-card" data-symbol="甲" href="./categories/equipment.html"><span class="category-icon">◇</span><h3>Equipment</h3><p>Armor sets, accessories, upgrades and endgame optimization.</p></a>
-        <a class="category-card" data-symbol="道" href="./categories/inner-ways.html"><span class="category-icon">◎</span><h3>Inner Ways</h3><p>Effects, unlock methods, synergies and recommended setups.</p></a>
-        <a class="category-card" data-symbol="技" href="./categories/mystic-skills.html"><span class="category-icon">✧</span><h3>Mystic Skills</h3><p>Combat and exploration abilities with practical use cases.</p></a>
-        <a class="category-card" data-symbol="築" href="./categories/builds.html"><span class="category-icon">☷</span><h3>Builds</h3><p>PvE, PvP and general-purpose build recommendations.</p></a>
-        <a class="category-card" data-symbol="盟" href="./guides/guilds.html"><span class="category-icon">♜</span><h3>Guilds</h3><p>Guild benefits, disciples, activities and community systems.</p></a>
+    <section class="page" data-page="equipment">
+      <div class="breadcrumbs">Home / <span>Equipment</span></div>
+      <div class="article-shell">
+        <div class="article-header">
+          <div class="article-label">Category</div>
+          <h1 class="article-title">Equipment Guides</h1>
+          <div class="article-desc">Gear progression, upgrading, armor sets, accessories, Arsenal and endgame optimization.</div>
+        </div>
+        <div class="article-content">
+          <h2>Equipment Topics</h2>
+          <div class="grid">
+            <div class="card" data-go="gear-progression"><h3>Gear Progression</h3><p>Learn when to replace, upgrade and invest in equipment.</p></div>
+            <div class="card" data-go="armor"><h3>Armor Sets</h3><p>Set bonuses, ideal usage and recommended weapons.</p></div>
+            <div class="card" data-go="weapons"><h3>Weapons</h3><p>Weapon categories, pairings and combat roles.</p></div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="section"><div class="section-head"><div><h2>Featured Guides</h2><div class="section-sub">Useful starting points for new and returning players.</div></div><a class="see-all" href="./categories/builds.html">VIEW ALL →</a></div>
-      <div class="guide-list">
-        <a class="guide-card" href="./guides/beginner-guide.html"><span class="guide-index">01</span><div><h3>Beginner Progression Guide</h3><p>What to prioritize first and which systems matter early.</p></div><span class="tag">Starter</span></a>
-        <a class="guide-card" href="./guides/gear-progression.html"><span class="guide-index">02</span><div><h3>Gear Progression & Upgrading</h3><p>A simple route from early equipment into optimized endgame sets.</p></div><span class="tag">Equipment</span></a>
-        <a class="guide-card" href="./guides/guilds.html"><span class="guide-index">03</span><div><h3>Why Join a Guild?</h3><p>Rewards, group content and the practical benefits of membership.</p></div><span class="tag">Systems</span></a>
+    <section class="page" data-page="combat">
+      <div class="breadcrumbs">Home / <span>Combat</span></div>
+      <div class="article-shell">
+        <div class="article-header">
+          <div class="article-label">Category</div>
+          <h1 class="article-title">Combat Tools</h1>
+          <div class="article-desc">Inner Ways, Mystic Skills, combat setup and character optimization.</div>
+        </div>
+        <div class="article-content">
+          <h2>Combat Topics</h2>
+          <div class="grid">
+            <div class="card" data-go="inner-ways"><h3>Inner Ways</h3><p>Passives and effects used to shape your build.</p></div>
+            <div class="card" data-go="mystic-skills"><h3>Mystic Skills</h3><p>Utility, control, damage and traversal techniques.</p></div>
+            <div class="card" data-go="builds"><h3>Builds</h3><p>Complete setups and recommended combinations.</p></div>
+          </div>
+        </div>
       </div>
     </section>
-    <footer class="footer">Jianghu Archive is a fan-made community wiki template. Replace this line with your own project disclaimer.</footer>
+
+    <section class="page" data-page="builds">
+      <div class="breadcrumbs">Home / <span>Builds</span></div>
+      <div class="article-shell">
+        <div class="article-header"><div class="article-label">Category</div><h1 class="article-title">Builds</h1><div class="article-desc">Recommended weapon, gear, Inner Way and Mystic Skill combinations.</div></div>
+        <div class="article-content"><h2>Build Library</h2><p>Add PvE, PvP, bossing, support and weapon-specific builds here.</p><div class="note">Tip: duplicate an article section in this file and add it to the search list to create more guides.</div></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="weapons">
+      <div class="breadcrumbs">Home / Equipment / <span>Weapons</span></div>
+      <div class="article-shell">
+        <div class="article-header"><div class="article-label">Database</div><h1 class="article-title">Weapons</h1><div class="article-desc">A central index for weapon types, pairings and recommended equipment sets.</div></div>
+        <div class="article-content"><h2>Weapon Database</h2><p>Add each weapon as its own article or database card.</p></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="armor">
+      <div class="breadcrumbs">Home / Equipment / <span>Armor Sets</span></div>
+      <div class="article-shell">
+        <div class="article-header"><div class="article-label">Database</div><h1 class="article-title">Armor Sets</h1><div class="article-desc">Set effects, ideal usage, acquisition methods and recommended weapon combinations.</div></div>
+        <div class="article-content">
+          <h2>Armor Set Template</h2>
+          <h3>Short Description</h3><p>Explain the main purpose of the armor set in one or two sentences.</p>
+          <h3>Ideal Usage</h3><p>Explain what builds or combat situations benefit most from the set.</p>
+          <h3>Commonly Used Weapons</h3><p>List weapons that naturally benefit from the set bonus.</p>
+          <h3>How to Obtain</h3><p>List bosses, Sword Trials, outposts, shops or other sources.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-page="inner-ways">
+      <div class="breadcrumbs">Home / Combat / <span>Inner Ways</span></div>
+      <div class="article-shell">
+        <div class="article-header"><div class="article-label">Database</div><h1 class="article-title">Inner Ways</h1><div class="article-desc">Unlock methods, effects and recommended uses for Inner Ways.</div></div>
+        <div class="article-content"><h2>Inner Way Index</h2><p>Add individual Inner Ways here with an unlock method, short description and recommended builds.</p></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="mystic-skills">
+      <div class="breadcrumbs">Home / Combat / <span>Mystic Skills</span></div>
+      <div class="article-shell">
+        <div class="article-header"><div class="article-label">Database</div><h1 class="article-title">Mystic Skills</h1><div class="article-desc">Mystic Skill unlocks, effects and practical uses.</div></div>
+        <div class="article-content"><h2>Mystic Skill Index</h2><p>Organize Mystic Skills by combat, movement, utility and exploration.</p></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="world">
+      <div class="breadcrumbs">Home / <span>World</span></div>
+      <div class="article-shell">
+        <div class="article-header"><div class="article-label">Category</div><h1 class="article-title">World & Exploration</h1><div class="article-desc">Regions, bosses, outposts, exploration activities, sects and collectibles.</div></div>
+        <div class="article-content"><h2>World Topics</h2><div class="grid"><div class="card" data-go="regions"><h3>Regions</h3><p>Regional guides and important locations.</p></div><div class="card" data-go="sects"><h3>Sects</h3><p>Sect systems, joining and progression.</p></div><div class="card" data-go="guilds"><h3>Guilds</h3><p>Social systems and shared progression.</p></div></div></div>
+      </div>
+    </section>
+
+    <section class="page" data-page="beginner">
+      <a class="back-btn" href="#home">← Back to Home</a>
+      <div class="article-shell">
+        <div class="article-header">
+          <div class="article-label">Getting Started</div>
+          <h1 class="article-title">Beginner Progression Guide</h1>
+          <div class="article-desc">A simple progression roadmap for new players entering the Jianghu.</div>
+        </div>
+        <div class="article-content">
+          <div class="toc"><strong>Contents</strong><a href="#beginner-start">1. Early Priorities</a><a href="#beginner-gear">2. Gear</a><a href="#beginner-combat">3. Combat Systems</a></div>
+          <h2 id="beginner-start">Early Priorities</h2><p>Focus on unlocking core systems and learning your preferred weapons before heavily investing resources.</p>
+          <h2 id="beginner-gear">Gear</h2><p>Replace weak gear naturally during progression. Save expensive optimization for equipment you expect to keep longer.</p>
+          <h2 id="beginner-combat">Combat Systems</h2><p>Learn how your weapons interact with Inner Ways and Mystic Skills instead of treating each system separately.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-page="progression">
+      <div class="breadcrumbs">Home / <span>Progression</span></div>
+      <div class="article-shell"><div class="article-header"><div class="article-label">Guide</div><h1 class="article-title">Progression Roadmap</h1><div class="article-desc">A roadmap from early progression into advanced systems and endgame.</div></div><div class="article-content"><h2>Roadmap</h2><p>Add level milestones, region progression, unlocks and recommended activities here.</p></div></div>
+    </section>
+
+    <section class="page" data-page="gear-progression">
+      <a class="back-btn" href="#equipment">← Equipment</a>
+      <div class="article-shell">
+        <div class="article-header"><div class="article-label">Equipment Guide</div><h1 class="article-title">Gear Progression</h1><div class="article-desc">How to think about gear upgrades from early game through late-game optimization.</div></div>
+        <div class="article-content">
+          <h2>Early Game</h2><p>Prioritize useful stats and natural upgrades rather than chasing perfect pieces.</p>
+          <h2>Mid Game</h2><p>Start choosing equipment sets that match the weapon pair and playstyle you actually use.</p>
+          <h2>Late Game</h2><p>Invest heavily only when your main build is established and the upgrade has meaningful long-term value.</p>
+          <div class="note">Replace this starter text with your own verified guide information.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-page="guilds">
+      <a class="back-btn" href="#home">← Back to Home</a>
+      <div class="article-shell">
+        <div class="article-header"><div class="article-label">Social Guide</div><h1 class="article-title">Guilds, Partnerships & Disciples</h1><div class="article-desc">Why social systems matter and what players can gain from participating in them.</div></div>
+        <div class="article-content">
+          <h2>Why Join a Guild?</h2><p>Guilds give players a reliable group for activities, progression help, information sharing and community events.</p>
+          <h2>Partnership Benefits</h2><p>Use this section for confirmed partnership bonuses, shared activities and progression benefits.</p>
+          <h2>Disciple Benefits</h2><p>Use this section for mentorship rewards, progression assistance and any disciple-specific systems.</p>
+          <div class="note">Keep exact numerical rewards updated when game patches change these systems.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-page="sects">
+      <div class="breadcrumbs">Home / World / <span>Sects</span></div>
+      <div class="article-shell"><div class="article-header"><div class="article-label">Database</div><h1 class="article-title">Sects</h1><div class="article-desc">Sect requirements, benefits, techniques and progression.</div></div><div class="article-content"><h2>Sect Index</h2><p>Add each sect and its requirements here.</p></div></div>
+    </section>
+
+    <section class="page" data-page="regions">
+      <div class="breadcrumbs">Home / World / <span>Regions</span></div>
+      <div class="article-shell"><div class="article-header"><div class="article-label">Database</div><h1 class="article-title">Regions</h1><div class="article-desc">Regional exploration guides, activities and notable locations.</div></div><div class="article-content"><h2>Region Index</h2><p>Add region cards and detailed exploration pages here.</p></div></div>
+    </section>
   </main>
 
-  <aside class="rightbar"><div class="rightbar-inner">
-    <div class="panel"><h3 class="panel-title">Wiki at a glance</h3><div class="stat-grid"><div class="stat"><strong>8</strong><span>Starter pages</span></div><div class="stat"><strong>6</strong><span>Categories</span></div></div></div>
-    <div class="panel"><h3 class="panel-title">Popular</h3><div class="right-links"><a href="./guides/gear-progression.html">Gear Progression</a><a href="./categories/inner-ways.html">Inner Ways</a><a href="./categories/builds.html">Builds</a><a href="./guides/guilds.html">Guild Benefits</a></div></div>
-    <div class="panel"><h3 class="panel-title">About this template</h3><p style="font-size:12px;color:#98978f;margin:0">No framework or build step. Edit the HTML files, commit, and GitHub Pages can publish them directly.</p></div>
-  </div></aside>
+  <aside class="rightbar">
+    <div class="widget">
+      <h3>Popular Guides</h3>
+      <div class="widget-body">
+        <a class="widget-link" href="#gear-progression">Gear Progression</a>
+        <a class="widget-link" href="#inner-ways">All Inner Ways</a>
+        <a class="widget-link" href="#mystic-skills">Mystic Skills</a>
+        <a class="widget-link" href="#guilds">Guild Benefits</a>
+      </div>
+    </div>
+    <div class="widget">
+      <h3>Wiki Status</h3>
+      <div class="patch">
+        <strong>Single-file GitHub build</strong>
+        <p>This version works with just one index.html file. No folders, database, npm or backend required.</p>
+      </div>
+    </div>
+  </aside>
 </div>
-<script src="./assets/site.js"></script>
+
+<script>
+const pages = [
+  ["Home","home","Main wiki homepage"],
+  ["Beginner Progression Guide","beginner","Getting Started"],
+  ["Progression Roadmap","progression","Getting Started"],
+  ["Equipment Guides","equipment","Equipment"],
+  ["Gear Progression","gear-progression","Equipment"],
+  ["Weapons","weapons","Equipment"],
+  ["Armor Sets","armor","Equipment"],
+  ["Combat Tools","combat","Combat"],
+  ["Inner Ways","inner-ways","Combat"],
+  ["Mystic Skills","mystic-skills","Combat"],
+  ["Builds","builds","Combat"],
+  ["World & Exploration","world","World"],
+  ["Guilds, Partnerships & Disciples","guilds","Social"],
+  ["Sects","sects","World"],
+  ["Regions","regions","World"]
+];
+
+function currentPage(){
+  const hash = location.hash.replace("#","").split("/")[0];
+  return pages.some(p=>p[1]===hash) ? hash : "home";
+}
+function showPage(name){
+  document.querySelectorAll(".page").forEach(el=>el.classList.toggle("active",el.dataset.page===name));
+  document.querySelectorAll(".side-link").forEach(el=>el.classList.toggle("active",el.getAttribute("href")==="#"+name));
+  closeMenu();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function route(){
+  showPage(currentPage());
+}
+window.addEventListener("hashchange",route);
+route();
+
+document.querySelectorAll("[data-go]").forEach(el=>{
+  el.addEventListener("click",()=>location.hash=el.dataset.go);
+});
+
+const search = document.getElementById("search");
+const results = document.getElementById("searchResults");
+search.addEventListener("input",()=>{
+  const q=search.value.trim().toLowerCase();
+  if(!q){results.classList.remove("show");results.innerHTML="";return;}
+  const matches=pages.filter(p=>(p[0]+" "+p[2]).toLowerCase().includes(q)).slice(0,8);
+  results.innerHTML=matches.length?matches.map(p=>`<a class="search-item" href="#${p[1]}"><b>${p[0]}</b><span>${p[2]}</span></a>`).join(""):`<div class="search-item"><span>No results found</span></div>`;
+  results.classList.add("show");
+});
+document.addEventListener("click",e=>{
+  if(!e.target.closest(".search-wrap")) results.classList.remove("show");
+});
+results.addEventListener("click",()=>{search.value="";results.classList.remove("show")});
+
+const sidebar=document.getElementById("sidebar");
+const overlay=document.getElementById("overlay");
+document.getElementById("menuBtn").addEventListener("click",()=>{
+  sidebar.classList.toggle("open");
+  overlay.classList.toggle("show");
+});
+overlay.addEventListener("click",closeMenu);
+function closeMenu(){
+  sidebar.classList.remove("open");
+  overlay.classList.remove("show");
+}
+</script>
 </body>
-</html>
+</html>'''
+
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(f"Created {path} ({path.stat().st_size:,} bytes)")
