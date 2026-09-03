@@ -3,10 +3,10 @@
 
   document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
     const href = link.getAttribute('href') || '';
-    if (href.includes('wiki.css')) link.href = href.split('?')[0] + '?v=complete2';
+    if (href.includes('wiki.css')) link.href = href.split('?')[0] + '?v=complete3';
   });
   if (!document.querySelector('link[href*="expansion.css"]')) {
-    const css = document.createElement('link'); css.rel='stylesheet'; css.href=`${root}assets/css/expansion.css?v=complete2`; document.head.appendChild(css);
+    const css = document.createElement('link'); css.rel='stylesheet'; css.href=`${root}assets/css/expansion.css?v=complete3`; document.head.appendChild(css);
   }
 
   const nav = [
@@ -41,10 +41,10 @@
     : `<div class="nav-menu"><a href="${root}${path}">${label}</a></div>`).join('');
 
   const headerHost=document.getElementById('site-header');
-  if(headerHost){headerHost.className='site-header';headerHost.innerHTML=`<div class="utility-bar"><div class="utility-inner"><button class="menu-square" id="browseBtn" type="button" aria-label="Browse wiki">☰</button><a class="archive-brand" href="${root}index.html"><span class="archive-mark">风</span><strong>JIANGHU ARCHIVE</strong></a><div class="global-search"><span class="search-glyph">⌕</span><input id="search" placeholder="Search the wiki" autocomplete="off" aria-label="Search wiki"><button class="search-button" id="searchButton" type="button">Search</button><div id="searchResults" class="search-results"></div></div><span class="community-tag">GLOBAL 2.1 WIKI</span></div></div><div class="game-nav-shell"><div class="game-nav-inner"><a class="game-brand" href="${root}index.html"><span class="game-mark">风</span><span class="game-copy"><b>WHERE WINDS MEET</b><small>WIKI</small></span></a><nav class="header-nav">${navMarkup}</nav></div></div>`;}
+  if(headerHost){headerHost.className='site-header';headerHost.innerHTML=`<div class="utility-bar"><div class="utility-inner"><button class="menu-square" id="browseBtn" type="button" aria-label="Browse wiki">☰</button><a class="archive-brand" href="${root}index.html"><span class="archive-mark">风</span><strong>JIANGHU ARCHIVE</strong></a><div class="global-search"><span class="search-glyph">⌕</span><input id="search" placeholder="Search the wiki" autocomplete="off" aria-label="Search wiki"><button class="search-button" id="searchButton" type="button">Search</button><div id="searchResults" class="search-results"></div></div><span class="community-tag">GLOBAL 2.1 WIKI</span></div></div><div class="game-nav-shell"><div class="game-nav-inner"><a class="game-brand" href="${root}index.html"><span class="game-mark">风</span><span class="game-copy"><b>WHERE WINDS MEET</b><small>WIKI</small></span></a><nav class="header-nav">${navMarkup}</nav></div></div><a class="guild-credit-bar" href="https://discord.gg/SkQp9ypjBg" target="_blank" rel="noopener noreferrer"><span>Created & maintained by the guild</span><strong>MOD剣</strong><span class="guild-credit-join">Join the MOD剣 Discord ↗</span></a>`;}
 
   const sidebar=document.getElementById('site-sidebar');
-  if(sidebar){sidebar.classList.add('sidebar');sidebar.innerHTML=`<div class="drawer-head"><strong>Wiki Navigation</strong><button class="drawer-close" id="drawerClose" type="button">×</button></div>${drawerGroups.map(g=>`<div class="side-title">${g[0]}</div>${g[1].map(i=>`<a class="side-link" href="${root}${i[1]}">${i[0]}</a>`).join('')}`).join('')}`;}
+  if(sidebar){sidebar.classList.add('sidebar');sidebar.innerHTML=`<div class="drawer-head"><strong>Wiki Navigation</strong><button class="drawer-close" id="drawerClose" type="button">×</button></div><a class="drawer-guild-credit" href="https://discord.gg/SkQp9ypjBg" target="_blank" rel="noopener noreferrer"><span>WIKI BY</span><strong>MOD剣</strong><small>discord.gg/SkQp9ypjBg ↗</small></a>${drawerGroups.map(g=>`<div class="side-title">${g[0]}</div>${g[1].map(i=>`<a class="side-link" href="${root}${i[1]}">${i[0]}</a>`).join('')}`).join('')}`;}
   const rightbar=document.getElementById('site-rightbar'); if(rightbar) rightbar.innerHTML='';
 
   const add=(title,type,path,desc='')=>({title,type,path,desc});
