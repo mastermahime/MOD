@@ -1,1 +1,132 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jianghu Archive — Where Winds Meet Wiki</title><meta name="description" content="Community guide archive for Where Winds Meet."><link rel="stylesheet" href="assets/css/wiki.css"></head><body data-root="./"><div id="site-header"></div><div class="mobile-overlay" id="overlay"></div><div class="layout"><aside class="sidebar" id="site-sidebar"></aside><main class="main"><section class="hero"><div class="kicker">Where Winds Meet Guide Database · Version 2.1</div><h1>Walk the Jianghu.<br>Know the way.</h1><p>A modular community wiki for progression, combat, equipment, exploration and social systems. Every major subject is split into editable pages so the archive can grow without turning into one giant file.</p></section><div class="section-head"><h2>Explore the Wiki</h2><span>Core databases & guides</span></div><div class="grid"><a class="card" href="database/martial-arts/index.html"><div class="card-icon">武</div><h3>Martial Arts</h3><p>20 standalone Martial Art pages organized by Martial Path, weapon and unlock route.</p></a><a class="card" href="categories/equipment.html"><div class="card-icon">◇</div><h3>Equipment</h3><p>Gear progression, armor sets, weapons, upgrading and optimization.</p></a><a class="card" href="database/inner-ways/index.html"><div class="card-icon">心</div><h3>Inner Ways</h3><p>Passive combat systems, path-specific bonuses and current unlock methods.</p></a><a class="card" href="database/mystic-skills/index.html"><div class="card-icon">秘</div><h3>Mystic Skills</h3><p>22 individual unlock-route pages covering quests, observation, Skill Theft and exploration.</p></a><a class="card" href="database/armor/index.html"><div class="card-icon">甲</div><h3>Armor & Gear Sets</h3><p>Set roles, 2-piece themes, 4-piece mechanics and Version 2.1 additions.</p></a><a class="card" href="database/weapons/index.html"><div class="card-icon">刀</div><h3>Weapons</h3><p>Weapon families with direct links to every tracked Martial Art.</p></a><a class="card" href="categories/builds.html"><div class="card-icon">✦</div><h3>Builds</h3><p>PvE, PvP, bossing and weapon-specific setups.</p></a><a class="card" href="categories/world.html"><div class="card-icon">山</div><h3>World</h3><p>Regions, sects, exploration, bosses and activities.</p></a><a class="card" href="guides/social/guilds.html"><div class="card-icon">盟</div><h3>Guilds & Social</h3><p>Guilds, partnerships, disciples and group progression.</p></a></div><div class="section-head"><h2>Featured Guides</h2><span>Starter articles</span></div><div class="grid"><a class="card" href="guides/getting-started/beginner-guide.html"><h3>Beginner Progression Guide</h3><p>What to prioritize when starting and how to avoid wasting resources.</p></a><a class="card" href="guides/equipment/gear-progression.html"><h3>Gear Progression</h3><p>How equipment progression works from early game to late game.</p></a><a class="card" href="database/martial-arts/skystrike-gauntlets.html"><h3>Skystrike Gauntlets</h3><p>Version 2.1 unlock route and Bamboocut - Draught pairing.</p></a></div><div class="footer">Jianghu Archive · Modular GitHub Pages wiki · Game facts rewritten and independently organized</div></main><aside class="rightbar" id="site-rightbar"></aside></div><script src="data/search-index.js"></script><script src="assets/js/wiki.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jianghu Archive — Where Winds Meet Wiki</title>
+  <meta name="description" content="An independent Where Winds Meet guide and database archive for combat, equipment, builds and exploration.">
+  <link rel="stylesheet" href="assets/css/wiki.css">
+</head>
+<body data-root="./">
+  <div id="site-header"></div>
+  <div class="mobile-overlay" id="overlay"></div>
+  <aside id="site-sidebar"></aside>
+
+  <main class="home-page">
+    <section class="home-hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Where Winds Meet · Community Archive</div>
+        <h1>The Jianghu,<br><span>indexed.</span></h1>
+        <p>A clean reference hub for Martial Arts, Inner Ways, Mystic Skills, equipment, builds and progression. Browse the game by system instead of digging through one giant list of guides.</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="database/martial-arts/index.html">Browse Martial Arts</a>
+          <a class="secondary-btn" href="guides/getting-started/beginner-guide.html">Start Here</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <div class="hero-panel-title">Find anything in the archive</div>
+        <div class="hero-search">
+          <span>⌕</span>
+          <input id="heroSearch" placeholder="Search skills, weapons, sets, guides..." autocomplete="off">
+          <div id="heroSearchResults" class="search-results"></div>
+        </div>
+        <div class="quick-list">
+          <a class="quick-link" href="database/martial-arts/index.html"><small>Combat</small><strong>Martial Arts</strong></a>
+          <a class="quick-link" href="database/inner-ways/index.html"><small>Passives</small><strong>Inner Ways</strong></a>
+          <a class="quick-link" href="database/mystic-skills/index.html"><small>Techniques</small><strong>Mystic Skills</strong></a>
+          <a class="quick-link" href="database/armor/index.html"><small>Equipment</small><strong>Armor & Gear Sets</strong></a>
+        </div>
+        <div class="version-chip">Independent wiki · modular GitHub Pages build</div>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="home-section-head">
+        <h2>Explore by system</h2>
+        <p>Go straight to the part of the game you need.</p>
+      </div>
+      <div class="feature-grid">
+        <a class="feature-card large" data-mark="武" href="database/martial-arts/index.html">
+          <div class="meta">Combat Database</div>
+          <h3>Martial Arts</h3>
+          <p>Weapon styles organized by Martial Path, pairing, role and unlock route. Each Martial Art has its own page.</p>
+        </a>
+        <a class="feature-card medium" data-mark="心" href="database/inner-ways/index.html">
+          <div class="meta">Character System</div>
+          <h3>Inner Ways</h3>
+          <p>Build-defining passives, effects and acquisition routes.</p>
+        </a>
+        <a class="feature-card medium" data-mark="秘" href="database/mystic-skills/index.html">
+          <div class="meta">Techniques</div>
+          <h3>Mystic Skills</h3>
+          <p>Exploration and combat techniques with individual unlock pages.</p>
+        </a>
+        <a class="feature-card medium" data-mark="兵" href="database/weapons/index.html">
+          <div class="meta">Equipment</div>
+          <h3>Weapons</h3>
+          <p>Weapon families and the Martial Arts connected to them.</p>
+        </a>
+        <a class="feature-card medium" data-mark="甲" href="database/armor/index.html">
+          <div class="meta">Gear Database</div>
+          <h3>Gear Sets</h3>
+          <p>Set themes, bonuses, intended roles and acquisition notes.</p>
+        </a>
+        <a class="feature-card large" data-mark="山" href="categories/world.html">
+          <div class="meta">Jianghu</div>
+          <h3>World & Exploration</h3>
+          <p>Regions, sects, activities, bosses and exploration systems will branch from one central world hub.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="home-section-head">
+        <h2>Wiki index</h2>
+        <p>Fast access without opening the browse menu.</p>
+      </div>
+      <div class="index-grid">
+        <a class="index-card" href="categories/combat.html"><strong>Combat Hub</strong><span>Systems & mechanics</span></a>
+        <a class="index-card" href="categories/equipment.html"><strong>Equipment Hub</strong><span>Gear & upgrades</span></a>
+        <a class="index-card" href="categories/builds.html"><strong>Builds</strong><span>PvE, PvP & setups</span></a>
+        <a class="index-card" href="categories/world.html"><strong>World</strong><span>Regions & exploration</span></a>
+        <a class="index-card" href="database/martial-arts/index.html"><strong>Martial Arts</strong><span>Weapon styles</span></a>
+        <a class="index-card" href="database/inner-ways/index.html"><strong>Inner Ways</strong><span>Passive systems</span></a>
+        <a class="index-card" href="database/mystic-skills/index.html"><strong>Mystic Skills</strong><span>Special techniques</span></a>
+        <a class="index-card" href="database/armor/index.html"><strong>Armor & Sets</strong><span>Gear bonuses</span></a>
+      </div>
+    </section>
+
+    <section class="home-section split-section">
+      <div class="info-block">
+        <div class="eyebrow">New Player Route</div>
+        <h3>Start with the essentials</h3>
+        <div class="link-stack">
+          <a class="stack-link" href="guides/getting-started/beginner-guide.html">Beginner Guide <span>01</span></a>
+          <a class="stack-link" href="guides/getting-started/progression.html">Progression Roadmap <span>02</span></a>
+          <a class="stack-link" href="guides/equipment/gear-progression.html">Gear Progression <span>03</span></a>
+          <a class="stack-link" href="guides/social/guilds.html">Guilds & Social Systems <span>04</span></a>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="eyebrow">Build & Optimize</div>
+        <h3>Build around your combat path</h3>
+        <div class="link-stack">
+          <a class="stack-link" href="database/martial-arts/index.html">Choose a Martial Path <span>Combat</span></a>
+          <a class="stack-link" href="database/inner-ways/index.html">Match Inner Ways <span>Passives</span></a>
+          <a class="stack-link" href="database/armor/index.html">Pick a Gear Set <span>Equipment</span></a>
+          <a class="stack-link" href="categories/builds.html">View Build Guides <span>Complete Setup</span></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="home-footer">
+      <span>Jianghu Archive · Where Winds Meet community wiki</span>
+      <span>Designed for independent pages, fast navigation and easy editing.</span>
+    </footer>
+  </main>
+
+  <script src="data/search-index.js"></script>
+  <script src="assets/js/wiki.js"></script>
+</body>
+</html>
