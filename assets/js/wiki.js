@@ -1,121 +1,81 @@
 (() => {
   const root = document.body.dataset.root || './';
 
-  // Force fresh shared styling after redesigns so old cached CSS cannot mix with new HTML.
   document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
     const href = link.getAttribute('href') || '';
-    if (href.includes('wiki.css') && !href.includes('v=fextra4')) link.href = href.split('?')[0] + '?v=fextra4';
+    if (href.includes('wiki.css')) link.href = href.split('?')[0] + '?v=complete2';
   });
+  if (!document.querySelector('link[href*="expansion.css"]')) {
+    const css = document.createElement('link'); css.rel='stylesheet'; css.href=`${root}assets/css/expansion.css?v=complete2`; document.head.appendChild(css);
+  }
 
   const nav = [
-    ['Home','index.html'],
-    ['General','guides/getting-started/beginner-guide.html'],
-    ['Character','database/inner-ways/index.html'],
-    ['Equipment','categories/equipment.html'],
-    ['World','categories/world.html'],
-    ['Guides','categories/builds.html']
-  ];
-
-  const groups = [
-    ['START HERE',[
-      ['Beginner Guide','guides/getting-started/beginner-guide.html'],
-      ['Progression Roadmap','guides/getting-started/progression.html']
+    ['Home','index.html',[]],
+    ['General','guides/getting-started/beginner-guide.html',[
+      ['Beginner Guide','guides/getting-started/beginner-guide.html'],['Progression Roadmap','guides/getting-started/progression.html'],['Quests','database/quests/index.html'],['Items','database/items/index.html'],['Professions','database/professions/index.html'],['Updates','updates/index.html']
     ]],
-    ['CHARACTER & COMBAT',[
-      ['Martial Arts','database/martial-arts/index.html'],
-      ['Inner Ways','database/inner-ways/index.html'],
-      ['Mystic Skills','database/mystic-skills/index.html'],
-      ['Builds','categories/builds.html']
+    ['Character','categories/combat.html',[
+      ['Martial Arts','database/martial-arts/index.html'],['Inner Ways','database/inner-ways/index.html'],['Mystic Skills','database/mystic-skills/index.html'],['Builds','guides/builds/index.html'],['Movement','database/movement/index.html'],['Companions','database/companions/index.html']
     ]],
-    ['EQUIPMENT',[
-      ['Weapons','database/weapons/index.html'],
-      ['Armor & Gear Sets','database/armor/index.html'],
-      ['Equipment Hub','categories/equipment.html'],
-      ['Gear Progression','guides/equipment/gear-progression.html']
+    ['Equipment','categories/equipment.html',[
+      ['Weapons','database/weapons/index.html'],['Armor & Gear Sets','database/armor/index.html'],['Items & Materials','database/items/index.html'],['Gear Progression','guides/equipment/gear-progression.html'],['Arsenal','guides/systems/arsenal.html'],['Divine Craft','guides/systems/divine-craft.html']
     ]],
-    ['WORLD & COMMUNITY',[
-      ['World & Exploration','categories/world.html'],
-      ['Guilds & Social','guides/social/guilds.html'],
-      ['Sects','categories/world.html#sects'],
-      ['Regions','categories/world.html#regions']
+    ['World','categories/world.html',[
+      ['Regions','database/regions/index.html'],['Bosses','database/bosses/index.html'],['Exploration','database/exploration/index.html'],['Quests','database/quests/index.html'],['NPCs','database/npcs/index.html'],['Sects','database/sects/index.html'],['Mounts','database/mounts/index.html']
+    ]],
+    ['Guides','categories/builds.html',[
+      ['Builds by Martial Path','guides/builds/index.html'],['Endgame','guides/endgame/index.html'],['Guilds','guides/social/guilds.html'],['Partnerships','guides/social/partnerships.html'],['Discipleship','guides/social/discipleship.html'],['Homestead','guides/systems/home.html'],['Version 2.1','updates/version-2-1.html']
     ]]
   ];
 
-  const headerHost = document.getElementById('site-header');
-  if (headerHost) {
-    headerHost.className = 'site-header';
-    headerHost.innerHTML = `
-      <div class="utility-bar">
-        <div class="utility-inner">
-          <button class="menu-square" id="browseBtn" type="button" aria-label="Browse wiki">☰</button>
-          <a class="archive-brand" href="${root}index.html"><span class="archive-mark">风</span><strong>JIANGHU ARCHIVE</strong></a>
-          <div class="global-search">
-            <span class="search-glyph">⌕</span>
-            <input id="search" placeholder="Search the wiki" autocomplete="off" aria-label="Search wiki">
-            <button class="search-button" type="button">Search</button>
-            <div id="searchResults" class="search-results"></div>
-          </div>
-          <span class="community-tag">COMMUNITY WIKI</span>
-        </div>
-      </div>
-      <div class="game-nav-shell">
-        <div class="game-nav-inner">
-          <a class="game-brand" href="${root}index.html"><span class="game-mark">风</span><span class="game-copy"><b>WHERE WINDS MEET</b><small>WIKI</small></span></a>
-          <nav class="header-nav">${nav.map(n=>`<a href="${root}${n[1]}">${n[0]} <span>⌄</span></a>`).join('')}</nav>
-        </div>
-      </div>`;
-  }
+  const drawerGroups = [
+    ['START HERE', [['Beginner Guide','guides/getting-started/beginner-guide.html'],['Progression Roadmap','guides/getting-started/progression.html'],['Version 2.1','updates/version-2-1.html']]],
+    ['CHARACTER & COMBAT', [['Martial Arts','database/martial-arts/index.html'],['Inner Ways','database/inner-ways/index.html'],['Mystic Skills','database/mystic-skills/index.html'],['Builds','guides/builds/index.html'],['Bosses','database/bosses/index.html'],['Endgame','guides/endgame/index.html'],['Movement','database/movement/index.html']]],
+    ['EQUIPMENT', [['Weapons','database/weapons/index.html'],['Armor & Gear Sets','database/armor/index.html'],['Items & Materials','database/items/index.html'],['Gear Progression','guides/equipment/gear-progression.html'],['Arsenal','guides/systems/arsenal.html'],['Divine Craft','guides/systems/divine-craft.html']]],
+    ['WORLD', [['Regions','database/regions/index.html'],['Exploration','database/exploration/index.html'],['Quests','database/quests/index.html'],['NPCs','database/npcs/index.html'],['Sects','database/sects/index.html'],['Mounts','database/mounts/index.html'],['Companions','database/companions/index.html']]],
+    ['SOCIAL & LIFE', [['Guilds','guides/social/guilds.html'],['Partnerships','guides/social/partnerships.html'],['Discipleship','guides/social/discipleship.html'],['Guild War','guides/endgame/guild-war.html'],['Homestead','guides/systems/home.html'],['Professions','database/professions/index.html']]]
+  ];
 
-  const sidebar = document.getElementById('site-sidebar');
-  if (sidebar) {
-    sidebar.classList.add('sidebar');
-    sidebar.innerHTML = `
-      <div class="drawer-head"><strong>Wiki Navigation</strong><button class="drawer-close" id="drawerClose" type="button" aria-label="Close menu">×</button></div>
-      ${groups.map(group => `<div class="side-title">${group[0]}</div>${group[1].map(item=>`<a class="side-link" href="${root}${item[1]}">${item[0]}</a>`).join('')}`).join('')}`;
-  }
+  const navMarkup = nav.map(([label,path,children]) => children.length
+    ? `<div class="nav-menu"><a href="${root}${path}">${label} <span>⌄</span></a><div class="nav-dropdown">${children.map(c=>`<a href="${root}${c[1]}">${c[0]}</a>`).join('')}</div></div>`
+    : `<div class="nav-menu"><a href="${root}${path}">${label}</a></div>`).join('');
 
-  const rightbar = document.getElementById('site-rightbar');
-  if (rightbar) rightbar.innerHTML = '';
+  const headerHost=document.getElementById('site-header');
+  if(headerHost){headerHost.className='site-header';headerHost.innerHTML=`<div class="utility-bar"><div class="utility-inner"><button class="menu-square" id="browseBtn" type="button" aria-label="Browse wiki">☰</button><a class="archive-brand" href="${root}index.html"><span class="archive-mark">风</span><strong>JIANGHU ARCHIVE</strong></a><div class="global-search"><span class="search-glyph">⌕</span><input id="search" placeholder="Search the wiki" autocomplete="off" aria-label="Search wiki"><button class="search-button" id="searchButton" type="button">Search</button><div id="searchResults" class="search-results"></div></div><span class="community-tag">GLOBAL 2.1 WIKI</span></div></div><div class="game-nav-shell"><div class="game-nav-inner"><a class="game-brand" href="${root}index.html"><span class="game-mark">风</span><span class="game-copy"><b>WHERE WINDS MEET</b><small>WIKI</small></span></a><nav class="header-nav">${navMarkup}</nav></div></div>`;}
 
-  const overlay = document.getElementById('overlay');
-  const browseBtn = document.getElementById('browseBtn');
-  const drawerClose = document.getElementById('drawerClose');
-  const closeDrawer = () => {
-    if (sidebar) sidebar.classList.remove('open');
-    if (overlay) overlay.classList.remove('show');
-    document.body.style.overflow = '';
-  };
-  const openDrawer = () => {
-    if (sidebar) sidebar.classList.add('open');
-    if (overlay) overlay.classList.add('show');
-    document.body.style.overflow = 'hidden';
-  };
-  if (browseBtn) browseBtn.addEventListener('click', openDrawer);
-  if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
-  if (overlay) overlay.addEventListener('click', closeDrawer);
-  if (sidebar) sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+  const sidebar=document.getElementById('site-sidebar');
+  if(sidebar){sidebar.classList.add('sidebar');sidebar.innerHTML=`<div class="drawer-head"><strong>Wiki Navigation</strong><button class="drawer-close" id="drawerClose" type="button">×</button></div>${drawerGroups.map(g=>`<div class="side-title">${g[0]}</div>${g[1].map(i=>`<a class="side-link" href="${root}${i[1]}">${i[0]}</a>`).join('')}`).join('')}`;}
+  const rightbar=document.getElementById('site-rightbar'); if(rightbar) rightbar.innerHTML='';
 
-  const pages = window.WIKI_SEARCH || [];
-  const runSearch = (value, target) => {
-    const q = value.trim().toLowerCase();
-    if (!q) { target.classList.remove('show'); target.innerHTML = ''; return; }
-    const matches = pages.filter(p => `${p.title} ${p.type} ${p.desc}`.toLowerCase().includes(q)).slice(0,12);
-    target.innerHTML = matches.length
-      ? matches.map(p=>`<a class="search-item" href="${root}${p.path}"><b>${p.title}</b><span>${p.type} · ${p.desc}</span></a>`).join('')
-      : '<div class="search-item"><span>No matching pages yet</span></div>';
-    target.classList.add('show');
-  };
+  const add=(title,type,path,desc='')=>({title,type,path,desc});
+  const extras=[];
+  const push=(type,dir,rows)=>rows.forEach(([title,file,desc=''])=>extras.push(add(title,type,`${dir}/${file}.html`,desc)));
+  extras.push(add('Regions','Database','database/regions/index.html','Qinghe Kaifeng Hexi Liangzhou Qinchuan Imperial Palace Hidden Mountain'));
+  push('Region','database/regions',[['Qinghe','qinghe'],['Kaifeng','kaifeng'],['Hexi','hexi'],['Liangzhou','liangzhou'],['Qinchuan','qinchuan'],['Imperial Palace','imperial-palace'],['Hidden Mountain','hidden-mountain','Version 2.1 Mohist Hill']]);
+  extras.push(add('Sects','Database','database/sects/index.html','factions rules shops reputation'));
+  push('Sect','database/sects',[['Nine Mortal Ways','nine-mortal-ways'],['Well of Heaven','well-of-heaven'],['Midnight Blades','midnight-blades'],['Silver Needles','silver-needles'],['Velvet Shade','velvet-shade'],['Masked Troupe','masked-troupe'],['Raging Tides','raging-tides'],['Inkbound Order','inkbound-order'],['Hollow Vale','hollow-vale'],['Mohist Hill','mohist-hill'],['Lone Cloud','lone-cloud']]);
+  extras.push(add('Bosses','Database','database/bosses/index.html','campaign world challenge bosses'));
+  push('Boss','database/bosses',[['Inkpincer Scorpion','inkpincer-scorpion','Version 2.1 Hidden Mountain'],['Cloudclutch Serpent','cloudclutch-serpent','Version 2.1 Hidden Mountain'],['Heartseeker','heartseeker'],['Qianye','qianye'],['Ye Wanshan','ye-wanshan'],['The Void King','void-king'],['Lucky Seventeen','lucky-seventeen'],['Tian Ying','tian-ying'],['Dao Lord','dao-lord'],['Zheng the Frostwing','zheng-frostwing'],['Murong Yuan','murong-yuan'],['God of Avarice','god-of-avarice'],['River Master','river-master'],['Guo Xin','guo-xin'],['Wucan','wucan'],['Town Gate Roar','town-gate-roar'],['Puppeteer - Sheng Wu','puppeteer-sheng-wu'],['Sleeping Daoist','sleeping-daoist'],['Puppeteer - Curtaincall','puppeteer-curtaincall'],['Earth Fiend Deity','earth-fiend-deity'],['Snake Doctor','snake-doctor'],['Yi Dao','yi-dao'],['Wolf Maiden','wolf-maiden'],['Twin Lions','twin-lions'],['Ghost Master','ghost-master'],['Nameless General','nameless-general'],['Feng Ruzhi','feng-ruzhi'],['Drunk Martial Artist','drunk-martial-artist'],['Coffin Master','coffin-master'],['Wandering Ark','wandering-ark'],['Moongazing Maiden','moongazing-maiden'],['Pocketrupt Circus','pocketrupt-circus'],['Everdeer','everdeer'],['Dalang','dalang'],['He Yuezhi','he-yuezhi'],['Shen Yiren','shen-yiren'],['Elder Gongsun','elder-gongsun'],['Gongsun Deng','gongsun-deng'],['Demon Goose','demon-goose']]);
+  extras.push(add('Gear Sets','Database','database/armor/index.html','offensive defensive 2-piece 4-piece'));
+  push('Gear Set','database/armor',[['Jadeware','jadeware'],['Swallowcall','swallowcall'],['Hawkwing','hawkwing'],['Rainwhisper','rainwhisper'],['Swift Gale','swift-gale'],['Swaying Heights','swaying-heights'],['Mistwillow / Veil of the Willow','mistwillow'],['Ivorybloom','ivorybloom'],['Stars Align','stars-align'],['Shattered Ridge','shattered-ridge'],['Tiltrim','tiltrim'],['Formbend','formbend'],['Calmwaters','calmwaters'],['Eaglerise','eaglerise'],['Moonflare','moonflare'],['Agile Steps','agile-steps'],['Flawless Defense','flawless-defense'],['Beyond the Chill','beyond-the-chill'],['Whirlsnow','whirlsnow'],['Jade Embrace','jade-embrace'],['Obsidian Armor','obsidian-armor'],['Brimflow','brimflow']]);
+  extras.push(add('Inner Ways','Database','database/inner-ways/index.html','50+ passive combat abilities'));
+  push('Inner Way','database/inner-ways',[['Adaptive Steel','adaptive-steel'],['Art of Resistance','art-of-resistance'],['Battle Anthem','battle-anthem'],['Bitter Seasons','bitter-seasons'],['Blossom Barrage','blossom-barrage'],['Breaking Point','breaking-point'],['Celestial Vigor','celestial-vigor'],['Divine Roulette','divine-roulette'],['Echoes of Oblivion','echoes-of-oblivion'],['Empirical Edge','empirical-edge'],['Envigorated Warrior','envigorated-warrior'],['Eonpour','eonpour'],['Esoteric Revival','esoteric-revival'],['Evasive Charge','evasive-charge'],['Evening Snow','evening-snow'],['Exquisite Scenery','exquisite-scenery'],['Fivefold Bleed','fivefold-bleed'],['Flying Gourds','flying-gourds'],['Frost-Clad Night','frost-clad-night'],['Fury Harvest','fury-harvest'],['Heart of Fire','heart-of-fire'],['Insightful Strike','insightful-strike'],['Light and Shadow Alike','light-and-shadow-alike'],['Light Anew','light-anew'],['Mending Loom','mending-loom'],['Mistwing','mistwing'],['Morale Chant','morale-chant'],["Mountain's Might",'mountains-might'],['Phantom Rally','phantom-rally'],['Restoring Blossom','restoring-blossom'],['Riptide Reflex','riptide-reflex'],['Rock Solid','rock-solid'],['Royal Remedy','royal-remedy'],['Sandswirl Tail','sandswirl-tail'],['Seasonal Edge','seasonal-edge'],['Shadow Assault','shadow-assault'],['Sky Gripped','sky-gripped'],['Skyspeak','skyspeak'],['Soaring High','soaring-high'],['Song of Tang','song-of-tang'],['Star Reacher','star-reacher'],['Steadfast Devotion','steadfast-devotion'],['Steadfast Stance','steadfast-stance'],['Sword Horizon','sword-horizon'],['Sword Morph','sword-morph'],['Throat-Piercing Art','throat-piercing-art'],['Thunderous Bloom','thunderous-bloom'],['Towline Sweep','towline-sweep'],['Trapped Beast','trapped-beast'],['Vendetta','vendetta'],['Vital Leech','vital-leech'],['Volutefit','volutefit'],['Wildfire Spark','wildfire-spark'],['Wildfire Surge','wildfire-surge'],['Wind Beneath Wings','wind-beneath-wings'],["Wolfchaser's Art",'wolfchasers-art']]);
+  extras.push(add('Mystic Skills','Database','database/mystic-skills/index.html','combat puzzle support entertainment'));
+  push('Mystic Skill','database/mystic-skills',[['Bursting Nine','bursting-nine'],['Contortion','contortion'],['Cyclone Spin','cyclone-spin'],['Ever-Cold Heart','ever-cold-heart'],['Flute of the Tides','flute-of-the-tides'],['Ghostly Steps','ghostly-steps'],['Goosy Slide','goosy-slide'],['Honking Havoc','honking-havoc'],['Nightborne Glow','nightborne-glow'],['Paired Radiance','paired-radiance'],['Snow Lion Form','snow-lion-form'],['Soaring Spin','soaring-spin'],['Wealth Galore','wealth-galore'],['World to Sword','world-to-sword']]);
+  extras.push(add('Items','Database','database/items/index.html','currencies consumables materials'),add('Exploration','Database','database/exploration/index.html','Oddities Boundary Stones Wayfarers outposts'),add('Quests','Database','database/quests/index.html','main story side quests legacies tales'),add('NPCs','Database','database/npcs/index.html','characters merchants Wayfarers'),add('Companions','Database','database/companions/index.html','combat and life companions'),add('Professions','Database','database/professions/index.html','life skills crafting gathering'),add('Movement & Lightness Skills','Database','database/movement/index.html','gliding wallrun movement'),add('Mounts','Database','database/mounts/index.html','horses traversal mount appearances'));
+  push('Build','guides/builds',[['Bellstrike - Splendor Build','bellstrike-splendor'],['Bellstrike - Umbra Build','bellstrike-umbra'],['Silkbind - Jade Build','silkbind-jade'],['Silkbind - Deluge Build','silkbind-deluge'],['Bamboocut - Wind Build','bamboocut-wind'],['Stonesplit - Might Build','stonesplit-might'],['Bamboocut - Dust Build','bamboocut-dust'],['Stonesplit - Strength Build','stonesplit-strength'],['Bamboocut - Kite Build','bamboocut-kite'],['Bamboocut - Draught Build','bamboocut-draught']]);
+  extras.push(add('Builds by Martial Path','Guide','guides/builds/index.html','ten Martial Path builds'),add('Endgame','Guide','guides/endgame/index.html','Heroes Realm Sword Trial Arena'),add('Arsenal','Guide','guides/systems/arsenal.html','account gear progression'),add('Divine Craft','Guide','guides/systems/divine-craft.html','late game crafting'),add('Home & Homestead','Guide','guides/systems/home.html','housing pets'),add('Partnerships','Guide','guides/social/partnerships.html','Paired Radiance'),add('Discipleship','Guide','guides/social/discipleship.html','Cyclone Spin mentorship'),add('Version 2.1 Clouded Revelation','Update','updates/version-2-1.html','Hidden Mountain current global version'));
 
-  const search = document.getElementById('search');
-  const results = document.getElementById('searchResults');
-  if (search && results) search.addEventListener('input', () => runSearch(search.value, results));
+  window.WIKI_SEARCH=window.WIKI_SEARCH||[];const known=new Set(window.WIKI_SEARCH.map(p=>p.path));extras.forEach(p=>{if(!known.has(p.path)){known.add(p.path);window.WIKI_SEARCH.push(p);}});
 
-  const heroSearch = document.getElementById('heroSearch');
-  const heroResults = document.getElementById('heroSearchResults');
-  if (heroSearch && heroResults) heroSearch.addEventListener('input', () => runSearch(heroSearch.value, heroResults));
-
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.global-search') && results) results.classList.remove('show');
-    if (!e.target.closest('.hero-search') && heroResults) heroResults.classList.remove('show');
-  });
+  const overlay=document.getElementById('overlay'),browseBtn=document.getElementById('browseBtn'),drawerClose=document.getElementById('drawerClose');
+  const closeDrawer=()=>{if(sidebar)sidebar.classList.remove('open');if(overlay)overlay.classList.remove('show');document.body.style.overflow='';};
+  const openDrawer=()=>{if(sidebar)sidebar.classList.add('open');if(overlay)overlay.classList.add('show');document.body.style.overflow='hidden';};
+  if(browseBtn)browseBtn.addEventListener('click',openDrawer);if(drawerClose)drawerClose.addEventListener('click',closeDrawer);if(overlay)overlay.addEventListener('click',closeDrawer);if(sidebar)sidebar.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeDrawer));
+  const pages=window.WIKI_SEARCH;
+  const runSearch=(value,target)=>{const q=value.trim().toLowerCase();if(!q){target.classList.remove('show');target.innerHTML='';return;}const m=pages.filter(p=>`${p.title} ${p.type} ${p.desc}`.toLowerCase().includes(q)).slice(0,18);target.innerHTML=m.length?m.map(p=>`<a class="search-item" href="${root}${p.path}"><b>${p.title}</b><span>${p.type} · ${p.desc}</span></a>`).join(''):'<div class="search-item"><span>No matching pages yet</span></div>';target.classList.add('show');};
+  const search=document.getElementById('search'),results=document.getElementById('searchResults'),searchButton=document.getElementById('searchButton');
+  if(search&&results){search.addEventListener('input',()=>runSearch(search.value,results));search.addEventListener('keydown',e=>{if(e.key==='Enter'){runSearch(search.value,results);const f=results.querySelector('a');if(f)location.href=f.href;}});}if(searchButton&&search&&results)searchButton.addEventListener('click',()=>runSearch(search.value,results));
+  const heroSearch=document.getElementById('heroSearch'),heroResults=document.getElementById('heroSearchResults');if(heroSearch&&heroResults)heroSearch.addEventListener('input',()=>runSearch(heroSearch.value,heroResults));
+  document.addEventListener('click',e=>{if(!e.target.closest('.global-search')&&results)results.classList.remove('show');if(!e.target.closest('.hero-search')&&heroResults)heroResults.classList.remove('show');});
 })();
