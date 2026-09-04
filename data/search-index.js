@@ -10,6 +10,7 @@ window.WIKI_SEARCH=[
 {title:'Guilds Partnerships & Disciples',type:'Guide',path:'guides/social/guilds.html',desc:'Social systems and benefits'},
 {title:'Weapons',type:'Database',path:'database/weapons/index.html',desc:'Weapon families and Martial Arts'},
 {title:'Armor & Gear Sets',type:'Database',path:'database/armor/index.html',desc:'Set bonuses roles and acquisition planning'},
+{title:'Etherwrath',type:'Gear Set',path:'database/armor/etherwrath.html',desc:'Offensive stacking Attack and Martial Trigger penetration set'},
 {title:'Tiltrim',type:'Gear Set',path:'database/armor/tiltrim.html',desc:'Version 2.1 offensive Special Enhancement set'},
 {title:'Brimflow',type:'Gear Set',path:'database/armor/brimflow.html',desc:'Version 2.1 defensive Special Enhancement set'},
 {title:'Martial Arts',type:'Database',path:'database/martial-arts/index.html',desc:'Martial Paths pairings and unlocks'},
