@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Inkwell Fan">
+  <g fill="#f2f0eb">
+    <path d="M86 177L34 129Q45 102 64 84L96 166Z"/>
+    <path d="M96 166L66 82Q84 68 105 62L111 160Z"/>
+    <path d="M112 160L109 61Q132 57 151 64L128 160Z"/>
+    <path d="M129 160L155 66Q174 75 187 91L145 166Z"/>
+    <path d="M146 167L190 96Q200 113 202 132L163 176Z"/>
+    <path d="M76 177L87 188L102 179L112 190L96 204L76 190L68 183Z"/>
+  </g>
+  <g fill="none" stroke="#f2f0eb" stroke-linecap="round">
+    <path d="M175 58C216 78 235 116 225 155C216 194 183 219 137 231" stroke-width="13"/>
+    <path d="M194 79C218 103 224 132 214 160C207 180 194 195 176 206" stroke-width="6" opacity=".9"/>
+    <path d="M193 174C176 205 150 221 116 230" stroke-width="9" opacity=".95"/>
+    <path d="M205 67C213 72 221 79 226 86" stroke-width="4" opacity=".75"/>
+  </g>
+</svg>
