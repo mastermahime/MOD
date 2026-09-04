@@ -7,6 +7,9 @@
     if (/strategic-sword\.(png|svg)/.test(originalSrc) && !originalSrc.includes('strategic-sword.png?v=visible8')) {
       img.src = originalSrc.replace(/strategic-sword\.(?:png|svg)(?:\?[^#]*)?/, 'strategic-sword.png?v=visible8');
     }
+    if (/infernal-twinblades\.png/.test(originalSrc) && !originalSrc.includes('infernal-twinblades.png?v=infernal1')) {
+      img.src = originalSrc.replace(/infernal-twinblades\.png(?:\?[^#]*)?/, 'infernal-twinblades.png?v=infernal1');
+    }
 
     const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
     if (!frame) return;
