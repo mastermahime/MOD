@@ -2,6 +2,12 @@
   const processImage = (img) => {
     if (!img || img.dataset.iconFixBound === '1') return;
     img.dataset.iconFixBound = '1';
+
+    const originalSrc = img.getAttribute('src') || '';
+    if (originalSrc.includes('strategic-sword.png')) {
+      img.src = originalSrc.replace(/strategic-sword\.png(?:\?[^#]*)?/, 'strategic-sword.svg?v=black4');
+    }
+
     const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon');
     if (!frame) return;
 
