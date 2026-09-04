@@ -16,7 +16,7 @@ window.WIKI_SEARCH=[
 {title:'Martial Arts',type:'Database',path:'database/martial-arts/index.html',desc:'Martial Paths pairings and unlocks'},
 {title:'Martial Paths',type:'Database',path:'database/martial-paths/index.html',desc:'Path overviews strengths weaknesses weapons and skills'},
 {title:'Bellstrike - Splendor',type:'Martial Path',path:'database/martial-paths/bellstrike-splendor.html',desc:'Nameless Sword and Nameless Spear flexible melee DPS'},
-{title:'Bellstrike - Umbra',type:'Martial Path',path:'database/martial-paths/bellstrike-umbra.html',desc:'Strategic Sword and Heavenquaker Spear wound pressure'},
+{title:'Bellstrike - Umbra',type:'Martial Path',path:'database/martial-paths/bellstrike-umbra.html',desc:'Strategies Sword and Heavenquaker Spear wound pressure'},
 {title:'Silkbind - Jade',type:'Martial Path',path:'database/martial-paths/silkbind-jade.html',desc:'Vernal Umbrella and Inkwell Fan ranged control DPS'},
 {title:'Silkbind - Deluge',type:'Martial Path',path:'database/martial-paths/silkbind-deluge.html',desc:'Panacea Fan and Soulshade Umbrella healing support'},
 {title:'Bamboocut - Wind',type:'Martial Path',path:'database/martial-paths/bamboocut-wind.html',desc:'Infernal Twinblades and Mortal Rope Dart fast melee chase'},
@@ -27,7 +27,7 @@ window.WIKI_SEARCH=[
 {title:'Bamboocut - Draught',type:'Martial Path',path:'database/martial-paths/bamboocut-draught.html',desc:'Skystrike Gauntlets and Riven Twinblades drunken-state DPS'},
 {title:'Nameless Sword',type:'Martial Art',path:'database/martial-arts/nameless-sword.html',desc:'Bellstrike Splendor Sword default unlock'},
 {title:'Nameless Spear',type:'Martial Art',path:'database/martial-arts/nameless-spear.html',desc:'Bellstrike Splendor Spear default unlock'},
-{title:'Strategic Sword',type:'Martial Art',path:'database/martial-arts/strategic-sword.html',desc:'Bellstrike Umbra bleed Sword'},
+{title:'Strategies Sword',type:'Martial Art',path:'database/martial-arts/strategic-sword.html',desc:'Bellstrike Umbra bleed Sword'},
 {title:'Heavenquaker Spear',type:'Martial Art',path:'database/martial-arts/heavenquaker-spear.html',desc:'Bellstrike Umbra wound Spear'},
 {title:'Inkwell Fan',type:'Martial Art',path:'database/martial-arts/inkwell-fan.html',desc:'Silkbind Jade ranged Fan'},
 {title:'Vernal Umbrella',type:'Martial Art',path:'database/martial-arts/vernal-umbrella.html',desc:'Silkbind Jade ranged Umbrella'},
@@ -81,6 +81,7 @@ window.WIKI_SEARCH=[
 (() => {
   const p=location.pathname,root=(document.body&&document.body.dataset.root)||'../../';
   const load=(src)=>{const s=document.createElement('script');s.src=src;document.head.appendChild(s);};
+  load(`${root}assets/js/name-overrides.js?v=1`);
   const weaponBuild=(p.includes('/database/martial-arts/')&&!p.endsWith('/index.html'))||p.endsWith('/database/weapons/index.html')||(p.includes('/guides/builds/')&&!p.endsWith('/index.html')&&!p.endsWith('/variant.html'));
   if(weaponBuild)load(`${root}assets/js/weapon-build-guides.js?v=2`);
   const cnIndex=p.endsWith('/database/weapons/index.html')||p.endsWith('/database/martial-arts/index.html')||p.endsWith('/database/martial-paths/index.html')||p.endsWith('/guides/builds/index.html');
