@@ -10,8 +10,8 @@
     if (/infernal-twinblades\.png/.test(originalSrc) && !originalSrc.includes('infernal-twinblades.png?v=infernal1')) {
       img.src = originalSrc.replace(/infernal-twinblades\.png(?:\?[^#]*)?/, 'infernal-twinblades.png?v=infernal1');
     }
-    if (/riven-twinblades\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('riven-twinblades.png?v=riven5')) {
-      img.src = originalSrc.replace(/riven-twinblades\.(?:png|svg)(?:\?[^#]*)?/, 'riven-twinblades.png?v=riven5');
+    if (/riven-twinblades\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('riven-twinblades.png?v=riven7')) {
+      img.src = originalSrc.replace(/riven-twinblades\.(?:png|svg)(?:\?[^#]*)?/, 'riven-twinblades.png?v=riven7');
     }
 
     const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
