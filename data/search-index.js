@@ -78,3 +78,10 @@ window.WIKI_SEARCH=[
 {title:'Blinding Mist',type:'Mystic Skill',path:'database/mystic-skills/blinding-mist.html',desc:'Blind to the World Jianghu Legacy 04'},
 {title:'Touch of Death',type:'Mystic Skill',path:'database/mystic-skills/touch-of-death.html',desc:'Echoes of Old Battles Battlecrest Slope'}
 ];
+(() => {
+  const p=location.pathname;
+  const shouldLoad=(p.includes('/database/martial-arts/')&&!p.endsWith('/index.html'))||p.endsWith('/database/weapons/index.html')||(p.includes('/guides/builds/')&&!p.endsWith('/index.html')&&!p.endsWith('/variant.html'));
+  if(!shouldLoad)return;
+  const root=(document.body&&document.body.dataset.root)||'../../';
+  const s=document.createElement('script');s.src=`${root}assets/js/weapon-build-guides.js?v=1`;document.head.appendChild(s);
+})();
