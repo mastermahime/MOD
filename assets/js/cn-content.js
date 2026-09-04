@@ -1,0 +1,23 @@
+(() => {
+  const root=document.body.dataset.root||'../../';
+  if(!document.querySelector('link[href*="weapon-guides.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href=`${root}assets/css/weapon-guides.css?v=cn1`;document.head.appendChild(l);}
+  const addSearch=(title,type,path,desc)=>{window.WIKI_SEARCH=window.WIKI_SEARCH||[];if(!window.WIKI_SEARCH.some(x=>x.path===path))window.WIKI_SEARCH.push({title,type,path,desc});};
+  addSearch('Silkbind - Wing (CN)','Martial Path','database/martial-paths/silkbind-wing-cn.html','CN support DPS path with Ribbon Drum and Fan');
+  addSearch('Ribbon & Drum (CN)','Martial Art','database/martial-arts/ribbon-drum-cn.html','CN Ribbon Drum support control weapon');
+  addSearch('Qingzhou Fan (CN)','Martial Art','database/martial-arts/qingzhou-fan-cn.html','CN Fan support DPS control weapon');
+  addSearch('Upcoming CN Weapons','Weapon Preview','database/weapons/cn-upcoming.html','Staff and new Spear Martial Arts previews');
+  addSearch('Silkbind - Wing CN Build','Build','guides/builds/silkbind-wing-cn.html','Ribbon Drum and Qingzhou Fan support DPS build');
+  const path=location.pathname,content=document.querySelector('.article-content');if(!content)return;
+  if(path.endsWith('/database/weapons/index.html')&&!document.getElementById('cn-weapons')){
+    const sec=document.createElement('section');sec.id='cn-weapons';sec.className='icon-section';sec.innerHTML=`<div class="icon-section-head"><h2>CN Server Weapons</h2><span>Playable in China · Global release pending</span></div><div class="icon-grid"><a class="wiki-icon-card" href="../martial-arts/ribbon-drum-cn.html"><span class="wiki-icon-frame"><span class="icon-fallback">鼓</span></span><strong>Ribbon &amp; Drum</strong><small>CN · Support / Control</small></a><a class="wiki-icon-card" href="../martial-arts/qingzhou-fan-cn.html"><span class="wiki-icon-frame"><span class="icon-fallback">扇</span></span><strong>Qingzhou Fan</strong><small>CN · Support DPS</small></a></div><div class="icon-section-head" style="margin-top:28px"><h2>Announced CN Weapons</h2><span>Preview only</span></div><div class="portal-list"><a href="cn-upcoming.html#staff">Staff Martial Art</a><a href="cn-upcoming.html#spear">New Spear Martial Art Pair</a></div>`;content.appendChild(sec);
+  }
+  if(path.endsWith('/database/martial-arts/index.html')&&!document.getElementById('cn-martial-arts')){
+    const sec=document.createElement('section');sec.id='cn-martial-arts';sec.className='icon-section';sec.innerHTML=`<div class="icon-section-head"><h2>CN Server Martial Arts</h2><span>Global release pending</span></div><div class="path-grid"><div class="path-card"><div class="path-card-head"><a href="../martial-paths/silkbind-wing-cn.html"><strong>Silkbind - Wing (CN)</strong></a><span>Support DPS / Control</span></div><div class="icon-grid"><a class="wiki-icon-card" href="ribbon-drum-cn.html"><span class="wiki-icon-frame"><span class="icon-fallback">鼓</span></span><strong>Ribbon &amp; Drum</strong><small>舞绫鼓 · 文动霓裳</small></a><a class="wiki-icon-card" href="qingzhou-fan-cn.html"><span class="wiki-icon-frame"><span class="icon-fallback">扇</span></span><strong>Qingzhou Fan</strong><small>Fan · 杏游草野</small></a></div></div></div>`;content.appendChild(sec);
+  }
+  if(path.endsWith('/database/martial-paths/index.html')&&!document.getElementById('cn-martial-paths')){
+    const sec=document.createElement('section');sec.id='cn-martial-paths';sec.className='icon-section';sec.innerHTML=`<div class="icon-section-head"><h2>CN Server Martial Paths</h2><span>Global release pending</span></div><div class="build-hub-grid"><div class="build-hub-card"><h3><a href="silkbind-wing-cn.html">Silkbind - Wing (CN)</a></h3><p>牵丝·翊 · Ribbon &amp; Drum + Qingzhou Fan · Support DPS / Control</p><div class="build-mode-links"><a href="silkbind-wing-cn.html">Path Guide</a><a href="../../guides/builds/silkbind-wing-cn.html">Build</a><a href="../weapons/cn-upcoming.html">CN Preview</a></div></div></div>`;content.appendChild(sec);
+  }
+  if(path.endsWith('/guides/builds/index.html')&&!document.getElementById('cn-builds')){
+    const sec=document.createElement('section');sec.id='cn-builds';sec.innerHTML=`<h2>CN Server Builds</h2><div class="build-hub-grid"><div class="build-hub-card"><h3>Silkbind - Wing (CN)</h3><p>Ribbon &amp; Drum + Qingzhou Fan · Support DPS / Control</p><div class="build-mode-links"><a href="silkbind-wing-cn.html">Default</a><a href="silkbind-wing-cn-pvp.html">PvP</a><a href="silkbind-wing-cn-solo.html">Solo</a></div></div></div>`;content.appendChild(sec);
+  }
+})();
