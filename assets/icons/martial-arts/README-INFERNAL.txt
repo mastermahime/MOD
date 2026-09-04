@@ -1,0 +1,1 @@
+Infernal Twinblades icon is managed at infernal-twinblades.png.
