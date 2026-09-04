@@ -4,8 +4,8 @@
     img.dataset.iconFixBound = '1';
 
     const originalSrc = img.getAttribute('src') || '';
-    if (/strategic-sword\.(png|svg)/.test(originalSrc) && !originalSrc.includes('strategic-sword.png?v=visible7')) {
-      img.src = originalSrc.replace(/strategic-sword\.(?:png|svg)(?:\?[^#]*)?/, 'strategic-sword.png?v=visible7');
+    if (/strategic-sword\.(png|svg)/.test(originalSrc) && !originalSrc.includes('strategic-sword.png?v=visible8')) {
+      img.src = originalSrc.replace(/strategic-sword\.(?:png|svg)(?:\?[^#]*)?/, 'strategic-sword.png?v=visible8');
     }
 
     const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
