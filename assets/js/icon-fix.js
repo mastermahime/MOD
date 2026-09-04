@@ -5,16 +5,16 @@
 
     const originalSrc = img.getAttribute('src') || '';
     if (originalSrc.includes('strategic-sword.png')) {
-      img.src = originalSrc.replace(/strategic-sword\.png(?:\?[^#]*)?/, 'strategic-sword.svg?v=black4');
+      img.src = originalSrc.replace(/strategic-sword\.png(?:\?[^#]*)?/, 'strategic-sword.svg?v=bright6');
     }
 
-    const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon');
+    const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
     if (!frame) return;
 
     const applyLoadedState = () => {
       if (!img.naturalWidth) return;
       frame.classList.add('has-real-icon');
-      frame.querySelectorAll('.icon-fallback, .weapon-guide-fallback').forEach(el => el.remove());
+      frame.querySelectorAll('.icon-fallback, .weapon-guide-fallback, .martial-path-fallback').forEach(el => el.remove());
     };
 
     const applyErrorState = () => {
@@ -31,7 +31,7 @@
   };
 
   const scan = (root = document) => {
-    root.querySelectorAll?.('.wiki-icon-frame img, .weapon-guide-icon img').forEach(processImage);
+    root.querySelectorAll?.('.wiki-icon-frame img, .weapon-guide-icon img, .weapon-path-icon img').forEach(processImage);
   };
 
   const start = () => {
@@ -39,7 +39,7 @@
     const observer = new MutationObserver(records => {
       records.forEach(record => record.addedNodes.forEach(node => {
         if (node.nodeType !== 1) return;
-        if (node.matches?.('.wiki-icon-frame img, .weapon-guide-icon img')) processImage(node);
+        if (node.matches?.('.wiki-icon-frame img, .weapon-guide-icon img, .weapon-path-icon img')) processImage(node);
         scan(node);
       }));
     });
