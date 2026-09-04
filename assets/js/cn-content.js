@@ -17,7 +17,7 @@
   if(path.endsWith('/database/martial-paths/index.html')&&!document.getElementById('cn-martial-paths')){
     const sec=document.createElement('section');sec.id='cn-martial-paths';sec.className='icon-section';sec.innerHTML=`<div class="icon-section-head"><h2>CN Server Martial Paths</h2><span>Global release pending</span></div><div class="build-hub-grid"><div class="build-hub-card"><h3><a href="silkbind-wing-cn.html">Silkbind - Wing (CN)</a></h3><p>牵丝·翊 · Ribbon &amp; Drum + Qingzhou Fan · Support DPS / Control</p><div class="build-mode-links"><a href="silkbind-wing-cn.html">Path Guide</a><a href="../../guides/builds/silkbind-wing-cn.html">Build</a><a href="../weapons/cn-upcoming.html">CN Preview</a></div></div></div>`;content.appendChild(sec);
   }
-  if(path.endsWith('/guides/builds/index.html')&&!document.getElementById('cn-builds')){
+  if(path.endsWith('/guides/builds/index.html')&&!document.getElementById('cn-builds')&&!document.getElementById('cn-builds-static')){
     const sec=document.createElement('section');sec.id='cn-builds';sec.innerHTML=`<h2>CN Server Builds</h2><div class="build-hub-grid"><div class="build-hub-card"><h3>Silkbind - Wing (CN)</h3><p>Ribbon &amp; Drum + Qingzhou Fan · Support DPS / Control</p><div class="build-mode-links"><a href="silkbind-wing-cn.html">Default</a><a href="silkbind-wing-cn-pvp.html">PvP</a><a href="silkbind-wing-cn-solo.html">Solo</a></div></div></div>`;content.appendChild(sec);
   }
 })();
