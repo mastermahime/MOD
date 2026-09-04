@@ -1,0 +1,45 @@
+(() => {
+  const processImage = (img) => {
+    if (!img || img.dataset.iconFixBound === '1') return;
+    img.dataset.iconFixBound = '1';
+    const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon');
+    if (!frame) return;
+
+    const applyLoadedState = () => {
+      if (!img.naturalWidth) return;
+      frame.classList.add('has-real-icon');
+      frame.querySelectorAll('.icon-fallback, .weapon-guide-fallback').forEach(el => el.remove());
+    };
+
+    const applyErrorState = () => {
+      frame.classList.remove('has-real-icon');
+      img.remove();
+    };
+
+    img.addEventListener('load', applyLoadedState, { once: true });
+    img.addEventListener('error', applyErrorState, { once: true });
+    if (img.complete) {
+      if (img.naturalWidth) applyLoadedState();
+      else applyErrorState();
+    }
+  };
+
+  const scan = (root = document) => {
+    root.querySelectorAll?.('.wiki-icon-frame img, .weapon-guide-icon img').forEach(processImage);
+  };
+
+  const start = () => {
+    scan();
+    const observer = new MutationObserver(records => {
+      records.forEach(record => record.addedNodes.forEach(node => {
+        if (node.nodeType !== 1) return;
+        if (node.matches?.('.wiki-icon-frame img, .weapon-guide-icon img')) processImage(node);
+        scan(node);
+      }));
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+  else start();
+})();
