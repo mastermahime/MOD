@@ -34,8 +34,8 @@
     if (/phalanxbane-blade\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('phalanxbane-blade.png?v=phalanx1')) {
       img.src = originalSrc.replace(/phalanxbane-blade\.(?:png|svg)(?:\?[^#]*)?/, 'phalanxbane-blade.png?v=phalanx1');
     }
-    if (/nameless-spear\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('nameless-spear-clean.svg?v=spear1')) {
-      img.src = originalSrc.replace(/nameless-spear\.(?:png|svg)(?:\?[^#]*)?/, 'nameless-spear-clean.svg?v=spear1');
+    if (/nameless-spear(?:-clean)?\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('nameless-spear.png?v=spear3')) {
+      img.src = originalSrc.replace(/nameless-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/, 'nameless-spear.png?v=spear3');
     }
 
     const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
