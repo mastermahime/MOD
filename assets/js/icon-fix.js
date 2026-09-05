@@ -22,6 +22,12 @@
     if (/vernal-umbrella\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('vernal-umbrella.svg?v=umbrella1')) {
       img.src = originalSrc.replace(/vernal-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'vernal-umbrella.svg?v=umbrella1');
     }
+    if (/mortal-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('mortal-rope-dart.svg?v=rope1')) {
+      img.src = originalSrc.replace(/mortal-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'mortal-rope-dart.svg?v=rope1');
+    }
+    if (/skygrasp-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('skygrasp-rope-dart.svg?v=rope1')) {
+      img.src = originalSrc.replace(/skygrasp-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'skygrasp-rope-dart.svg?v=rope1');
+    }
 
     const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
     if (!frame) return;
