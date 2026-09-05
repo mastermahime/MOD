@@ -22,6 +22,9 @@
     if (/vernal-umbrella\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('vernal-umbrella.svg?v=umbrella1')) {
       img.src = originalSrc.replace(/vernal-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'vernal-umbrella.svg?v=umbrella1');
     }
+    if (/soulshade-umbrella\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('soulshade-umbrella.png?v=soul2')) {
+      img.src = originalSrc.replace(/soulshade-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'soulshade-umbrella.png?v=soul2');
+    }
     if (/mortal-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('mortal-rope-dart.svg?v=ropedart1')) {
       img.src = originalSrc.replace(/mortal-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'mortal-rope-dart.svg?v=ropedart1');
     }
