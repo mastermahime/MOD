@@ -28,6 +28,9 @@
     if (/mortal-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('mortal-rope-dart.svg?v=ropedart1')) {
       img.src = originalSrc.replace(/mortal-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'mortal-rope-dart.svg?v=ropedart1');
     }
+    if (/unfettered-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('unfettered-rope-dart.png?v=unfettered1')) {
+      img.src = originalSrc.replace(/unfettered-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'unfettered-rope-dart.png?v=unfettered1');
+    }
     if (/skygrasp-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('skygrasp-rope-dart.svg?v=ropedart1')) {
       img.src = originalSrc.replace(/skygrasp-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'skygrasp-rope-dart.svg?v=ropedart1');
     }
@@ -39,6 +42,9 @@
     }
     if (/nameless-spear(?:-clean)?\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('nameless-spear.png?v=spear3')) {
       img.src = originalSrc.replace(/nameless-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/, 'nameless-spear.png?v=spear3');
+    }
+    if (/stormbreaker-spear\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('stormbreaker-spear.png?v=storm1')) {
+      img.src = originalSrc.replace(/stormbreaker-spear\.(?:png|svg)(?:\?[^#]*)?/, 'stormbreaker-spear.png?v=storm1');
     }
 
     const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
