@@ -19,6 +19,9 @@
     if (/panacea-fan\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('panacea-fan.svg?v=fanfix1')) {
       img.src = originalSrc.replace(/panacea-fan\.(?:png|svg)(?:\?[^#]*)?/, 'panacea-fan.svg?v=fanfix1');
     }
+    if (/vernal-umbrella\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('vernal-umbrella.svg?v=umbrella1')) {
+      img.src = originalSrc.replace(/vernal-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'vernal-umbrella.svg?v=umbrella1');
+    }
 
     const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
     if (!frame) return;
