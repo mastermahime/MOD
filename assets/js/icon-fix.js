@@ -31,6 +31,9 @@
     if (/thundercry-blade\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('thundercry-blade.png?v=thunder2')) {
       img.src = originalSrc.replace(/thundercry-blade\.(?:png|svg)(?:\?[^#]*)?/, 'thundercry-blade.png?v=thunder2');
     }
+    if (/phalanxbane-blade\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('phalanxbane-blade.png?v=phalanx1')) {
+      img.src = originalSrc.replace(/phalanxbane-blade\.(?:png|svg)(?:\?[^#]*)?/, 'phalanxbane-blade.png?v=phalanx1');
+    }
 
     const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
     if (!frame) return;
