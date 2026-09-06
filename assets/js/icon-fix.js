@@ -34,8 +34,8 @@
     if (/skygrasp-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('skygrasp-rope-dart.svg?v=ropedart1')) {
       img.src = originalSrc.replace(/skygrasp-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'skygrasp-rope-dart.svg?v=ropedart1');
     }
-    if (/heavenwill-gauntlets\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('heavenwill-gauntlets.svg?v=gauntlet1')) {
-      img.src = originalSrc.replace(/heavenwill-gauntlets\.(?:png|svg)(?:\?[^#]*)?/, 'heavenwill-gauntlets.svg?v=gauntlet1');
+    if (/heavenwill-gauntlets\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('heavenwill-gauntlets.svg?v=gauntlet2')) {
+      img.src = originalSrc.replace(/heavenwill-gauntlets\.(?:png|svg)(?:\?[^#]*)?/, 'heavenwill-gauntlets.svg?v=gauntlet2');
     }
     if (/skystrike-gauntlets\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('skystrike-gauntlets.svg?v=gauntlet1')) {
       img.src = originalSrc.replace(/skystrike-gauntlets\.(?:png|svg)(?:\?[^#]*)?/, 'skystrike-gauntlets.svg?v=gauntlet1');
