@@ -16,6 +16,12 @@
 .weapon-guide-icon.weapon-guide-icon::after{display:none!important;content:none!important;background-image:none!important}
 .weapon-guide-meta .weapon-guide-link:not([href*="../martial-paths/"])::before{background-repeat:no-repeat!important;background-position:center center!important;background-size:86% 86%!important}
 
+/* Strategic Sword: always use the clean white transparent asset, including
+   quick-guide and Default Partner slots that are generated dynamically. */
+.weapon-guide-icon.weapon-guide-icon:has(img[src*="strategic-sword"])>img{visibility:hidden!important}
+.weapon-guide-icon.weapon-guide-icon:has(img[src*="strategic-sword"])::after{display:block!important;content:""!important;position:absolute!important;inset:0!important;z-index:4!important;background-image:url("../icons/martial-arts/strategic-sword-clean.svg?v=strategic-white1")!important;background-repeat:no-repeat!important;background-position:center center!important;background-size:92% 92%!important;pointer-events:none!important}
+.weapon-guide-link[href$="strategic-sword.html"]::before{background-image:url("../icons/martial-arts/strategic-sword-clean.svg?v=strategic-white1")!important;background-size:86% 86%!important}
+
 /* Crisp vector icons can fill a little more of the slot without clipping. */
 :where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="inkwell-fan"],
 :where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="panacea-fan"],
