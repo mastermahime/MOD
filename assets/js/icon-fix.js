@@ -10,34 +10,52 @@
   const IMG_SELECTOR = FRAME_SELECTORS.map(selector => `${selector} img`).join(', ');
 
   const ICONS = [
-    [/strategic-sword\.(?:png|svg)(?:\?[^#]*)?/, 'strategic-sword.png?v=icons-universal1'],
-    [/infernal-twinblades\.(?:png|svg)(?:\?[^#]*)?/, 'infernal-twinblades.png?v=icons-universal1'],
-    [/riven-twinblades\.(?:png|svg)(?:\?[^#]*)?/, 'riven-twinblades.png?v=icons-universal1'],
-    [/inkwell-fan\.(?:png|svg)(?:\?[^#]*)?/, 'inkwell-fan.svg?v=icons-universal1'],
-    [/panacea-fan\.(?:png|svg)(?:\?[^#]*)?/, 'panacea-fan.svg?v=icons-universal1'],
-    [/vernal-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'vernal-umbrella.svg?v=icons-universal1'],
-    [/soulshade-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'soulshade-umbrella.png?v=icons-universal1'],
-    [/everspring-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'everspring-umbrella.png?v=icons-universal1'],
-    [/mortal-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'mortal-rope-dart.svg?v=icons-universal1'],
-    [/unfettered-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'unfettered-rope-dart.png?v=icons-universal1'],
-    [/skygrasp-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'skygrasp-rope-dart.svg?v=icons-universal1'],
-    [/heavenwill-gauntlets\.(?:png|svg)(?:\?[^#]*)?/, 'heavenwill-gauntlets.svg?v=icons-universal1'],
-    [/skystrike-gauntlets(?:-flame)?\.(?:png|svg)(?:\?[^#]*)?/, 'skystrike-gauntlets-flame.svg?v=icons-universal1'],
-    [/thundercry-blade\.(?:png|svg)(?:\?[^#]*)?/, 'thundercry-blade.png?v=icons-universal1'],
-    [/phalanxbane-blade\.(?:png|svg)(?:\?[^#]*)?/, 'phalanxbane-blade.png?v=icons-universal1'],
-    [/nameless-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/, 'nameless-spear.png?v=icons-universal1'],
-    [/heavenquaker-spear\.(?:png|svg)(?:\?[^#]*)?/, 'heavenquaker-spear.png?v=icons-universal1'],
-    [/stormbreaker-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/, 'stormbreaker-spear-clean.svg?v=icons-universal1'],
-    [/nameless-sword\.(?:png|svg)(?:\?[^#]*)?/, 'nameless-sword.png?v=icons-universal1'],
-    [/snowparting-blade\.(?:png|svg)(?:\?[^#]*)?/, 'snowparting-blade.png?v=icons-universal1']
+    ['strategic-sword', 'strategic-sword.png?v=icons-universal1'],
+    ['infernal-twinblades', 'infernal-twinblades.png?v=icons-universal1'],
+    ['riven-twinblades', 'riven-twinblades.png?v=icons-universal1'],
+    ['inkwell-fan', 'inkwell-fan.svg?v=icons-universal1'],
+    ['panacea-fan', 'panacea-fan.svg?v=icons-universal1'],
+    ['vernal-umbrella', 'vernal-umbrella.svg?v=icons-universal1'],
+    ['soulshade-umbrella', 'soulshade-umbrella.png?v=icons-universal1'],
+    ['everspring-umbrella', 'everspring-umbrella.png?v=icons-universal1'],
+    ['mortal-rope-dart', 'mortal-rope-dart.svg?v=icons-universal1'],
+    ['unfettered-rope-dart', 'unfettered-rope-dart.png?v=icons-universal1'],
+    ['skygrasp-rope-dart', 'skygrasp-rope-dart.svg?v=icons-universal1'],
+    ['heavenwill-gauntlets', 'heavenwill-gauntlets.svg?v=icons-universal1'],
+    ['skystrike-gauntlets', 'skystrike-gauntlets-flame.svg?v=icons-universal1'],
+    ['thundercry-blade', 'thundercry-blade.png?v=icons-universal1'],
+    ['phalanxbane-blade', 'phalanxbane-blade.png?v=icons-universal1'],
+    ['nameless-spear', 'nameless-spear.png?v=icons-universal1'],
+    ['heavenquaker-spear', 'heavenquaker-spear.png?v=icons-universal1'],
+    ['stormbreaker-spear', 'stormbreaker-spear-clean.svg?v=icons-universal1'],
+    ['nameless-sword', 'nameless-sword.png?v=icons-universal1'],
+    ['snowparting-blade', 'snowparting-blade.png?v=icons-universal1']
   ];
+
+  const exactMainPattern = (slug) => {
+    if (slug === 'skystrike-gauntlets') return /skystrike-gauntlets(?:-flame)?\.(?:png|svg)(?:\?[^#]*)?/;
+    if (slug === 'stormbreaker-spear') return /stormbreaker-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/;
+    if (slug === 'nameless-spear') return /nameless-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/;
+    return new RegExp(`${slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\.(?:png|svg)(?:\\?[^#]*)?`);
+  };
 
   const normalizeSource = (src) => {
     if (!src) return src;
-    for (const [pattern, replacement] of ICONS) {
+    for (const [slug, replacement] of ICONS) {
+      const pattern = exactMainPattern(slug);
       if (pattern.test(src)) return src.replace(pattern, replacement);
     }
     return src;
+  };
+
+  const fallbackSource = (src) => {
+    if (!src) return null;
+    for (const [slug, replacement] of ICONS) {
+      if (!src.includes(slug)) continue;
+      const filePattern = new RegExp(`${slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^/]*\\.(?:png|svg)(?:\\?[^#]*)?`);
+      if (filePattern.test(src)) return src.replace(filePattern, replacement);
+    }
+    return null;
   };
 
   const processImage = (img) => {
@@ -56,12 +74,26 @@
       frame.classList.add('has-real-icon');
       frame.querySelectorAll('.icon-fallback,.weapon-guide-fallback,.martial-path-fallback').forEach(el => el.remove());
     };
-    const failed = () => {
+
+    const removeBroken = () => {
       frame.classList.remove('has-real-icon');
       img.remove();
     };
 
-    img.addEventListener('load', loaded, { once: true });
+    const failed = () => {
+      if (img.dataset.iconFallbackTried !== '1') {
+        const fallback = fallbackSource(img.getAttribute('src') || current);
+        if (fallback && fallback !== img.getAttribute('src')) {
+          img.dataset.iconFallbackTried = '1';
+          img.addEventListener('error', removeBroken, { once: true });
+          img.setAttribute('src', fallback);
+          return;
+        }
+      }
+      removeBroken();
+    };
+
+    img.addEventListener('load', loaded);
     img.addEventListener('error', failed, { once: true });
     if (img.complete) img.naturalWidth ? loaded() : failed();
   };
