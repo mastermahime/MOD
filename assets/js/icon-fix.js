@@ -32,11 +32,13 @@
     ['snowparting-blade', 'snowparting-blade.png?v=icons-universal1']
   ];
 
+  const escapeRegex = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
   const exactMainPattern = (slug) => {
     if (slug === 'skystrike-gauntlets') return /skystrike-gauntlets(?:-flame)?\.(?:png|svg)(?:\?[^#]*)?/;
     if (slug === 'stormbreaker-spear') return /stormbreaker-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/;
     if (slug === 'nameless-spear') return /nameless-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/;
-    return new RegExp(`${slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\.(?:png|svg)(?:\\?[^#]*)?`);
+    return new RegExp(`${escapeRegex(slug)}\\.(?:png|svg)(?:\\?[^#]*)?`);
   };
 
   const normalizeSource = (src) => {
@@ -52,7 +54,7 @@
     if (!src) return null;
     for (const [slug, replacement] of ICONS) {
       if (!src.includes(slug)) continue;
-      const filePattern = new RegExp(`${slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^/]*\\.(?:png|svg)(?:\\?[^#]*)?`);
+      const filePattern = new RegExp(`${escapeRegex(slug)}[^/]*\\.(?:png|svg)(?:\\?[^#]*)?`);
       if (filePattern.test(src)) return src.replace(filePattern, replacement);
     }
     return null;
@@ -65,12 +67,18 @@
     const frame = img.closest(FRAME_SELECTOR);
     if (!frame) return;
 
+    /* Inline onerror handlers on older pages hide the image before a fallback
+       can be substituted. The global fixer owns error handling now. */
+    img.removeAttribute('onerror');
+    img.style.display = '';
+
     const current = img.getAttribute('src') || '';
     const normalized = normalizeSource(current);
     if (normalized && normalized !== current) img.setAttribute('src', normalized);
 
     const loaded = () => {
       if (!img.naturalWidth) return;
+      img.style.display = '';
       frame.classList.add('has-real-icon');
       frame.querySelectorAll('.icon-fallback,.weapon-guide-fallback,.martial-path-fallback').forEach(el => el.remove());
     };
@@ -85,6 +93,7 @@
         const fallback = fallbackSource(img.getAttribute('src') || current);
         if (fallback && fallback !== img.getAttribute('src')) {
           img.dataset.iconFallbackTried = '1';
+          img.style.display = '';
           img.addEventListener('error', removeBroken, { once: true });
           img.setAttribute('src', fallback);
           return;
