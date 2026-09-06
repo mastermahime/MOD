@@ -37,8 +37,8 @@
     if (/heavenwill-gauntlets\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('heavenwill-gauntlets.svg?v=gauntlet2')) {
       img.src = originalSrc.replace(/heavenwill-gauntlets\.(?:png|svg)(?:\?[^#]*)?/, 'heavenwill-gauntlets.svg?v=gauntlet2');
     }
-    if (/skystrike-gauntlets\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('skystrike-gauntlets.svg?v=gauntlet1')) {
-      img.src = originalSrc.replace(/skystrike-gauntlets\.(?:png|svg)(?:\?[^#]*)?/, 'skystrike-gauntlets.svg?v=gauntlet1');
+    if (/skystrike-gauntlets\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('skystrike-gauntlets.svg?v=gauntlet2')) {
+      img.src = originalSrc.replace(/skystrike-gauntlets\.(?:png|svg)(?:\?[^#]*)?/, 'skystrike-gauntlets.svg?v=gauntlet2');
     }
     if (/thundercry-blade\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('thundercry-blade.png?v=thunder2')) {
       img.src = originalSrc.replace(/thundercry-blade\.(?:png|svg)(?:\?[^#]*)?/, 'thundercry-blade.png?v=thunder2');
