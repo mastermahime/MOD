@@ -1,12 +1,13 @@
 (() => {
-  const FRAME_SELECTOR = [
+  const FRAME_SELECTORS = [
     '.wiki-icon-frame',
     '.weapon-guide-icon',
     '.weapon-path-icon',
     '.skill-path-icon',
     '.martial-path-icon'
-  ].join(', ');
-  const IMG_SELECTOR = `${FRAME_SELECTOR} img`;
+  ];
+  const FRAME_SELECTOR = FRAME_SELECTORS.join(', ');
+  const IMG_SELECTOR = FRAME_SELECTORS.map(selector => `${selector} img`).join(', ');
 
   const ICONS = [
     [/strategic-sword\.(?:png|svg)(?:\?[^#]*)?/, 'strategic-sword.png?v=icons-universal1'],
