@@ -1,92 +1,82 @@
 (() => {
+  const FRAME_SELECTOR = [
+    '.wiki-icon-frame',
+    '.weapon-guide-icon',
+    '.weapon-path-icon',
+    '.skill-path-icon',
+    '.martial-path-icon'
+  ].join(', ');
+  const IMG_SELECTOR = `${FRAME_SELECTOR} img`;
+
+  const ICONS = [
+    [/strategic-sword\.(?:png|svg)(?:\?[^#]*)?/, 'strategic-sword.png?v=icons-universal1'],
+    [/infernal-twinblades\.(?:png|svg)(?:\?[^#]*)?/, 'infernal-twinblades.png?v=icons-universal1'],
+    [/riven-twinblades\.(?:png|svg)(?:\?[^#]*)?/, 'riven-twinblades.png?v=icons-universal1'],
+    [/inkwell-fan\.(?:png|svg)(?:\?[^#]*)?/, 'inkwell-fan.svg?v=icons-universal1'],
+    [/panacea-fan\.(?:png|svg)(?:\?[^#]*)?/, 'panacea-fan.svg?v=icons-universal1'],
+    [/vernal-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'vernal-umbrella.svg?v=icons-universal1'],
+    [/soulshade-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'soulshade-umbrella.png?v=icons-universal1'],
+    [/everspring-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'everspring-umbrella.png?v=icons-universal1'],
+    [/mortal-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'mortal-rope-dart.svg?v=icons-universal1'],
+    [/unfettered-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'unfettered-rope-dart.png?v=icons-universal1'],
+    [/skygrasp-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'skygrasp-rope-dart.svg?v=icons-universal1'],
+    [/heavenwill-gauntlets\.(?:png|svg)(?:\?[^#]*)?/, 'heavenwill-gauntlets.svg?v=icons-universal1'],
+    [/skystrike-gauntlets(?:-flame)?\.(?:png|svg)(?:\?[^#]*)?/, 'skystrike-gauntlets-flame.svg?v=icons-universal1'],
+    [/thundercry-blade\.(?:png|svg)(?:\?[^#]*)?/, 'thundercry-blade.png?v=icons-universal1'],
+    [/phalanxbane-blade\.(?:png|svg)(?:\?[^#]*)?/, 'phalanxbane-blade.png?v=icons-universal1'],
+    [/nameless-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/, 'nameless-spear.png?v=icons-universal1'],
+    [/heavenquaker-spear\.(?:png|svg)(?:\?[^#]*)?/, 'heavenquaker-spear.png?v=icons-universal1'],
+    [/stormbreaker-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/, 'stormbreaker-spear-clean.svg?v=icons-universal1'],
+    [/nameless-sword\.(?:png|svg)(?:\?[^#]*)?/, 'nameless-sword.png?v=icons-universal1'],
+    [/snowparting-blade\.(?:png|svg)(?:\?[^#]*)?/, 'snowparting-blade.png?v=icons-universal1']
+  ];
+
+  const normalizeSource = (src) => {
+    if (!src) return src;
+    for (const [pattern, replacement] of ICONS) {
+      if (pattern.test(src)) return src.replace(pattern, replacement);
+    }
+    return src;
+  };
+
   const processImage = (img) => {
     if (!img || img.dataset.iconFixBound === '1') return;
     img.dataset.iconFixBound = '1';
 
-    const originalSrc = img.getAttribute('src') || '';
-    if (/strategic-sword\.(png|svg)/.test(originalSrc) && !originalSrc.includes('strategic-sword.png?v=visible8')) {
-      img.src = originalSrc.replace(/strategic-sword\.(?:png|svg)(?:\?[^#]*)?/, 'strategic-sword.png?v=visible8');
-    }
-    if (/infernal-twinblades\.png/.test(originalSrc) && !originalSrc.includes('infernal-twinblades.png?v=infernal1')) {
-      img.src = originalSrc.replace(/infernal-twinblades\.png(?:\?[^#]*)?/, 'infernal-twinblades.png?v=infernal1');
-    }
-    if (/riven-twinblades\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('riven-twinblades.png?v=riven7')) {
-      img.src = originalSrc.replace(/riven-twinblades\.(?:png|svg)(?:\?[^#]*)?/, 'riven-twinblades.png?v=riven7');
-    }
-    if (/inkwell-fan\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('inkwell-fan.svg?v=fanfix1')) {
-      img.src = originalSrc.replace(/inkwell-fan\.(?:png|svg)(?:\?[^#]*)?/, 'inkwell-fan.svg?v=fanfix1');
-    }
-    if (/panacea-fan\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('panacea-fan.svg?v=fanfix1')) {
-      img.src = originalSrc.replace(/panacea-fan\.(?:png|svg)(?:\?[^#]*)?/, 'panacea-fan.svg?v=fanfix1');
-    }
-    if (/vernal-umbrella\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('vernal-umbrella.svg?v=umbrella1')) {
-      img.src = originalSrc.replace(/vernal-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'vernal-umbrella.svg?v=umbrella1');
-    }
-    if (/soulshade-umbrella\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('soulshade-umbrella.png?v=soul2')) {
-      img.src = originalSrc.replace(/soulshade-umbrella\.(?:png|svg)(?:\?[^#]*)?/, 'soulshade-umbrella.png?v=soul2');
-    }
-    if (/mortal-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('mortal-rope-dart.svg?v=ropedart1')) {
-      img.src = originalSrc.replace(/mortal-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'mortal-rope-dart.svg?v=ropedart1');
-    }
-    if (/unfettered-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('unfettered-rope-dart.png?v=unfettered1')) {
-      img.src = originalSrc.replace(/unfettered-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'unfettered-rope-dart.png?v=unfettered1');
-    }
-    if (/skygrasp-rope-dart\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('skygrasp-rope-dart.svg?v=ropedart1')) {
-      img.src = originalSrc.replace(/skygrasp-rope-dart\.(?:png|svg)(?:\?[^#]*)?/, 'skygrasp-rope-dart.svg?v=ropedart1');
-    }
-    if (/heavenwill-gauntlets\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('heavenwill-gauntlets.svg?v=gauntlet2')) {
-      img.src = originalSrc.replace(/heavenwill-gauntlets\.(?:png|svg)(?:\?[^#]*)?/, 'heavenwill-gauntlets.svg?v=gauntlet2');
-    }
-    if (/skystrike-gauntlets(?:-flame)?\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('skystrike-gauntlets.svg?v=skystrike3')) {
-      img.src = originalSrc.replace(/skystrike-gauntlets(?:-flame)?\.(?:png|svg)(?:\?[^#]*)?/, 'skystrike-gauntlets.svg?v=skystrike3');
-    }
-    if (/thundercry-blade\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('thundercry-blade.png?v=thunder2')) {
-      img.src = originalSrc.replace(/thundercry-blade\.(?:png|svg)(?:\?[^#]*)?/, 'thundercry-blade.png?v=thunder2');
-    }
-    if (/phalanxbane-blade\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('phalanxbane-blade.png?v=phalanx1')) {
-      img.src = originalSrc.replace(/phalanxbane-blade\.(?:png|svg)(?:\?[^#]*)?/, 'phalanxbane-blade.png?v=phalanx1');
-    }
-    if (/nameless-spear(?:-clean)?\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('nameless-spear.png?v=spear3')) {
-      img.src = originalSrc.replace(/nameless-spear(?:-clean)?\.(?:png|svg)(?:\?[^#]*)?/, 'nameless-spear.png?v=spear3');
-    }
-    if (/stormbreaker-spear\.(?:png|svg)/.test(originalSrc) && !originalSrc.includes('stormbreaker-spear.png?v=storm1')) {
-      img.src = originalSrc.replace(/stormbreaker-spear\.(?:png|svg)(?:\?[^#]*)?/, 'stormbreaker-spear.png?v=storm1');
-    }
-
-    const frame = img.closest('.wiki-icon-frame, .weapon-guide-icon, .weapon-path-icon');
+    const frame = img.closest(FRAME_SELECTOR);
     if (!frame) return;
 
-    const applyLoadedState = () => {
+    const current = img.getAttribute('src') || '';
+    const normalized = normalizeSource(current);
+    if (normalized && normalized !== current) img.setAttribute('src', normalized);
+
+    const loaded = () => {
       if (!img.naturalWidth) return;
       frame.classList.add('has-real-icon');
-      frame.querySelectorAll('.icon-fallback, .weapon-guide-fallback, .martial-path-fallback').forEach(el => el.remove());
+      frame.querySelectorAll('.icon-fallback,.weapon-guide-fallback,.martial-path-fallback').forEach(el => el.remove());
     };
-
-    const applyErrorState = () => {
+    const failed = () => {
       frame.classList.remove('has-real-icon');
       img.remove();
     };
 
-    img.addEventListener('load', applyLoadedState, { once: true });
-    img.addEventListener('error', applyErrorState, { once: true });
-    if (img.complete) {
-      if (img.naturalWidth) applyLoadedState();
-      else applyErrorState();
-    }
+    img.addEventListener('load', loaded, { once: true });
+    img.addEventListener('error', failed, { once: true });
+    if (img.complete) img.naturalWidth ? loaded() : failed();
   };
 
-  const scan = (root = document) => {
-    root.querySelectorAll?.('.wiki-icon-frame img, .weapon-guide-icon img, .weapon-path-icon img').forEach(processImage);
-  };
+  const scan = (root = document) => root.querySelectorAll?.(IMG_SELECTOR).forEach(processImage);
 
   const start = () => {
     scan();
     const observer = new MutationObserver(records => {
-      records.forEach(record => record.addedNodes.forEach(node => {
-        if (node.nodeType !== 1) return;
-        if (node.matches?.('.wiki-icon-frame img, .weapon-guide-icon img, .weapon-path-icon img')) processImage(node);
-        scan(node);
-      }));
+      for (const record of records) {
+        for (const node of record.addedNodes) {
+          if (node.nodeType !== 1) continue;
+          if (node.matches?.(IMG_SELECTOR)) processImage(node);
+          scan(node);
+        }
+      }
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
   };
