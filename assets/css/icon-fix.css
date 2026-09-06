@@ -2,20 +2,27 @@
    Keep every weapon icon centered and contained in every icon slot. */
 :where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon){position:relative;display:grid;place-items:center;overflow:hidden}
 :where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;padding:4px!important;object-fit:contain!important;object-position:center center!important;transform:none!important;transform-origin:center center!important;filter:none!important;opacity:1!important;visibility:visible!important;image-rendering:auto!important;z-index:2!important}
+
+/* Higher-specificity overrides beat older weapon-guides.css copies that may be
+   loaded later by weapon-build-guides.js. */
+.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;padding:4px!important;object-fit:contain!important;object-position:center center!important;transform:none!important;filter:none!important;opacity:1!important;visibility:visible!important;image-rendering:auto!important;z-index:2!important}
+.wiki-icon-frame.wiki-icon-frame>img,.weapon-path-icon.weapon-path-icon>img,.skill-path-icon.skill-path-icon>img,.martial-path-icon.martial-path-icon>img{object-fit:contain!important;object-position:center center!important;transform:none!important;visibility:visible!important}
+
 :where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>.icon-fallback,
 :where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>.weapon-guide-fallback,
 :where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>.martial-path-fallback{display:none!important}
 
 /* Old weapon-guide pseudo-image replacements caused inconsistent crops. */
-.weapon-guide-icon::after{display:none!important;content:none!important}
-.weapon-guide-meta .weapon-guide-link::before{background-repeat:no-repeat!important;background-position:center center!important;background-size:86% 86%!important}
+.weapon-guide-icon.weapon-guide-icon::after{display:none!important;content:none!important;background-image:none!important}
+.weapon-guide-meta .weapon-guide-link:not([href*="../martial-paths/"])::before{background-repeat:no-repeat!important;background-position:center center!important;background-size:86% 86%!important}
 
 /* Crisp vector icons can fill a little more of the slot without clipping. */
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="inkwell-fan"],
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="panacea-fan"],
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="vernal-umbrella"],
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="mortal-rope-dart"],
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="skygrasp-rope-dart"],
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="stormbreaker-spear"],
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="heavenwill-gauntlets"],
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="skystrike-gauntlets"]{padding:2px!important}
+:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="inkwell-fan"],
+:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="panacea-fan"],
+:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="vernal-umbrella"],
+:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="mortal-rope-dart"],
+:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="skygrasp-rope-dart"],
+:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="stormbreaker-spear"],
+:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="heavenwill-gauntlets"],
+:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="skystrike-gauntlets"]{padding:2px!important}
+.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="inkwell-fan"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="panacea-fan"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="vernal-umbrella"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="mortal-rope-dart"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="skygrasp-rope-dart"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="stormbreaker-spear"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="heavenwill-gauntlets"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="skystrike-gauntlets"]{padding:2px!important}
