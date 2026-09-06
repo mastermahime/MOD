@@ -10,26 +10,26 @@
   const IMG_SELECTOR = FRAME_SELECTORS.map(selector => `${selector} img`).join(', ');
 
   const ICONS = [
-    ['strategic-sword', 'strategic-sword.png?v=icons-universal1'],
-    ['infernal-twinblades', 'infernal-twinblades.png?v=icons-universal1'],
-    ['riven-twinblades', 'riven-twinblades.png?v=icons-universal1'],
-    ['inkwell-fan', 'inkwell-fan.svg?v=icons-universal1'],
-    ['panacea-fan', 'panacea-fan.svg?v=icons-universal1'],
-    ['vernal-umbrella', 'vernal-umbrella.svg?v=icons-universal1'],
-    ['soulshade-umbrella', 'soulshade-umbrella.png?v=icons-universal1'],
-    ['everspring-umbrella', 'everspring-umbrella.png?v=icons-universal1'],
-    ['mortal-rope-dart', 'mortal-rope-dart.svg?v=icons-universal1'],
-    ['unfettered-rope-dart', 'unfettered-rope-dart.png?v=icons-universal1'],
-    ['skygrasp-rope-dart', 'skygrasp-rope-dart.svg?v=icons-universal1'],
-    ['heavenwill-gauntlets', 'heavenwill-gauntlets.svg?v=icons-universal1'],
-    ['skystrike-gauntlets', 'skystrike-gauntlets-flame.svg?v=icons-universal1'],
-    ['thundercry-blade', 'thundercry-blade.png?v=icons-universal1'],
-    ['phalanxbane-blade', 'phalanxbane-blade.png?v=icons-universal1'],
-    ['nameless-spear', 'nameless-spear.png?v=icons-universal1'],
-    ['heavenquaker-spear', 'heavenquaker-spear.png?v=icons-universal1'],
-    ['stormbreaker-spear', 'stormbreaker-spear-clean.svg?v=icons-universal1'],
-    ['nameless-sword', 'nameless-sword.png?v=icons-universal1'],
-    ['snowparting-blade', 'snowparting-blade.png?v=icons-universal1']
+    ['strategic-sword', 'strategic-sword.png?v=icons-universal3'],
+    ['infernal-twinblades', 'infernal-twinblades.png?v=icons-universal3'],
+    ['riven-twinblades', 'riven-twinblades.png?v=icons-universal3'],
+    ['inkwell-fan', 'inkwell-fan.svg?v=icons-universal3'],
+    ['panacea-fan', 'panacea-fan.svg?v=icons-universal3'],
+    ['vernal-umbrella', 'vernal-umbrella.svg?v=icons-universal3'],
+    ['soulshade-umbrella', 'soulshade-umbrella.png?v=icons-universal3'],
+    ['everspring-umbrella', 'everspring-umbrella.png?v=icons-universal3'],
+    ['mortal-rope-dart', 'mortal-rope-dart.svg?v=icons-universal3'],
+    ['unfettered-rope-dart', 'unfettered-rope-dart.png?v=icons-universal3'],
+    ['skygrasp-rope-dart', 'skygrasp-rope-dart.svg?v=icons-universal3'],
+    ['heavenwill-gauntlets', 'heavenwill-gauntlets.svg?v=icons-universal3'],
+    ['skystrike-gauntlets', 'skystrike-gauntlets-flame.svg?v=icons-universal3'],
+    ['thundercry-blade', 'thundercry-blade.png?v=icons-universal3'],
+    ['phalanxbane-blade', 'phalanxbane-blade.png?v=icons-universal3'],
+    ['nameless-spear', 'nameless-spear.png?v=icons-universal3'],
+    ['heavenquaker-spear', 'heavenquaker-spear.png?v=icons-universal3'],
+    ['stormbreaker-spear', 'stormbreaker-spear-clean.svg?v=icons-universal3'],
+    ['nameless-sword', 'nameless-sword.png?v=icons-universal3'],
+    ['snowparting-blade', 'snowparting-blade.png?v=icons-universal3']
   ];
 
   const escapeRegex = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -58,6 +58,19 @@
       if (filePattern.test(src)) return src.replace(filePattern, replacement);
     }
     return null;
+  };
+
+  const removeDuplicateEnhancements = () => {
+    const keepFirst = selector => {
+      const nodes = Array.from(document.querySelectorAll(selector));
+      nodes.slice(1).forEach(node => node.remove());
+    };
+
+    keepFirst('.weapon-guide-quick');
+    keepFirst('#weapon-builds');
+
+    const guideStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"][href*="weapon-guides.css"]'));
+    guideStyles.slice(1).forEach(link => link.remove());
   };
 
   const processImage = (img) => {
@@ -110,7 +123,19 @@
   const scan = (root = document) => root.querySelectorAll?.(IMG_SELECTOR).forEach(processImage);
 
   const start = () => {
+    removeDuplicateEnhancements();
     scan();
+
+    let cleanupQueued = false;
+    const queueCleanup = () => {
+      if (cleanupQueued) return;
+      cleanupQueued = true;
+      queueMicrotask(() => {
+        cleanupQueued = false;
+        removeDuplicateEnhancements();
+      });
+    };
+
     const observer = new MutationObserver(records => {
       for (const record of records) {
         for (const node of record.addedNodes) {
@@ -119,6 +144,7 @@
           scan(node);
         }
       }
+      queueCleanup();
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
   };
