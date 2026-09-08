@@ -1,6 +1,6 @@
 (() => {
   const root = document.body.dataset.root || '../../';
-  const GUIDE_VERSION = 'icons-optical-20260908';
+  const GUIDE_VERSION = 'icons-quickcard-equal-20260908';
   if (!document.querySelector('link[rel="stylesheet"][href*="weapon-guides.css"]')) {
     const css = document.createElement('link');
     css.rel = 'stylesheet';
