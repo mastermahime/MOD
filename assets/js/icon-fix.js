@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const ICON_VERSION = 'icons-optical-20260908';
+  const ICON_VERSION = 'icons-quickcard-equal-20260908';
   const FRAME_SELECTORS = [
     '.wiki-icon-frame',
     '.weapon-guide-icon',
