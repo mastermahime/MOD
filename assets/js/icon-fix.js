@@ -26,102 +26,102 @@
     'nameless-sword': {
       file: 'nameless-sword-user.svg',
       aliases: ['nameless-sword.png', 'nameless-sword.svg', 'nameless-sword-user.svg'],
-      opticalScale: 0.78, opticalX: 0, opticalY: 0
+      opticalScale: 0.88, opticalX: 0, opticalY: 0
     },
     'nameless-spear': {
       file: 'nameless-spear.png',
       aliases: ['nameless-spear.png', 'nameless-spear.svg', 'nameless-spear-white.png', 'nameless-spear-clean.svg'],
-      opticalScale: 0.86, opticalX: 0, opticalY: 0
+      opticalScale: 0.93, opticalX: 0, opticalY: 0
     },
     'strategic-sword': {
       file: 'strategic-sword-clean.svg',
       aliases: ['strategic-sword.png', 'strategic-sword.svg', 'strategic-sword-clean.svg'],
-      opticalScale: 0.82, opticalX: 0, opticalY: 0
+      opticalScale: 0.90, opticalX: 0, opticalY: 0
     },
     'heavenquaker-spear': {
       file: 'heavenquaker-spear.png',
       aliases: ['heavenquaker-spear.png', 'heavenquaker-spear.svg'],
-      opticalScale: 0.84, opticalX: 0, opticalY: 0
+      opticalScale: 0.91, opticalX: 0, opticalY: 0
     },
     'vernal-umbrella': {
       file: 'vernal-umbrella.svg',
       aliases: ['vernal-umbrella.png', 'vernal-umbrella.svg'],
-      opticalScale: 0.94, opticalX: 0, opticalY: 0
+      opticalScale: 0.97, opticalX: 0, opticalY: 0
     },
     'inkwell-fan': {
       file: 'inkwell-fan.svg',
       aliases: ['inkwell-fan.png', 'inkwell-fan.svg'],
-      opticalScale: 0.92, opticalX: 0, opticalY: 0
+      opticalScale: 0.97, opticalX: 0, opticalY: 0
     },
     'panacea-fan': {
       file: 'panacea-fan.svg',
       aliases: ['panacea-fan.png', 'panacea-fan.svg'],
-      opticalScale: 0.92, opticalX: 0, opticalY: 0
+      opticalScale: 0.97, opticalX: 0, opticalY: 0
     },
     'soulshade-umbrella': {
       file: 'soulshade-umbrella.png',
       aliases: ['soulshade-umbrella.png', 'soulshade-umbrella.svg'],
-      opticalScale: 0.90, opticalX: 0, opticalY: 0
+      opticalScale: 0.95, opticalX: 0, opticalY: 0
     },
     'infernal-twinblades': {
       file: 'infernal-twinblades.png',
       aliases: ['infernal-twinblades.png', 'infernal-twinblades.svg'],
-      opticalScale: 0.88, opticalX: 0, opticalY: 0
+      opticalScale: 0.93, opticalX: 0, opticalY: 0
     },
     'mortal-rope-dart': {
       file: 'mortal-rope-dart.svg',
       aliases: ['mortal-rope-dart.png', 'mortal-rope-dart.svg'],
-      opticalScale: 0.94, opticalX: 0, opticalY: 0
+      opticalScale: 0.98, opticalX: 0, opticalY: 0
     },
     'stormbreaker-spear': {
       file: 'stormbreaker-spear-clean.svg',
       aliases: ['stormbreaker-spear.png', 'stormbreaker-spear.svg', 'stormbreaker-spear-clean.svg'],
-      opticalScale: 0.92, opticalX: 0, opticalY: 0
+      opticalScale: 0.96, opticalX: 0, opticalY: 0
     },
     'thundercry-blade': {
       file: 'thundercry-blade.png',
       aliases: ['thundercry-blade.png', 'thundercry-blade.svg'],
-      opticalScale: 0.88, opticalX: 0, opticalY: 0
+      opticalScale: 0.94, opticalX: 0, opticalY: 0
     },
     'everspring-umbrella': {
       file: 'everspring-umbrella.png',
       aliases: ['everspring-umbrella.png', 'everspring-umbrella.svg'],
-      opticalScale: 0.90, opticalX: 0, opticalY: 0
+      opticalScale: 1.04, opticalX: 0, opticalY: 0
     },
     'unfettered-rope-dart': {
       file: 'unfettered-rope-dart.png',
       aliases: ['unfettered-rope-dart.png', 'unfettered-rope-dart.svg'],
-      opticalScale: 0.89, opticalX: 0, opticalY: 0
+      opticalScale: 0.91, opticalX: 0, opticalY: 0
     },
     'snowparting-blade': {
       file: 'snowparting-blade.png',
       aliases: ['snowparting-blade.png', 'snowparting-blade.svg'],
-      opticalScale: 0.88, opticalX: 0, opticalY: 0
+      opticalScale: 0.94, opticalX: 0, opticalY: 0
     },
     'phalanxbane-blade': {
       file: 'phalanxbane-blade.png',
       aliases: ['phalanxbane-blade.png', 'phalanxbane-blade.svg'],
-      opticalScale: 0.87, opticalX: 0, opticalY: 0
+      opticalScale: 0.94, opticalX: 0, opticalY: 0
     },
     'heavenwill-gauntlets': {
       file: 'heavenwill-gauntlets.svg',
       aliases: ['heavenwill-gauntlets.png', 'heavenwill-gauntlets.svg'],
-      opticalScale: 0.93, opticalX: 0, opticalY: 0
+      opticalScale: 0.98, opticalX: 0, opticalY: 0
     },
     'skygrasp-rope-dart': {
       file: 'skygrasp-rope-dart.svg',
       aliases: ['skygrasp-rope-dart.png', 'skygrasp-rope-dart.svg'],
-      opticalScale: 0.94, opticalX: 0, opticalY: 0
+      opticalScale: 0.98, opticalX: 0, opticalY: 0
     },
     'skystrike-gauntlets': {
       file: 'skystrike-gauntlets-flame.svg',
       aliases: ['skystrike-gauntlets.png', 'skystrike-gauntlets.svg', 'skystrike-gauntlets-flame.svg'],
-      opticalScale: 0.92, opticalX: 0, opticalY: 0
+      opticalScale: 0.97, opticalX: 0, opticalY: 0
     },
     'riven-twinblades': {
       file: 'riven-twinblades.png',
       aliases: ['riven-twinblades.png', 'riven-twinblades.svg', 'riven-twinblades-fixed.png'],
-      opticalScale: 0.88, opticalX: 0, opticalY: 0
+      opticalScale: 0.94, opticalX: 0, opticalY: 0
     }
   };
 
@@ -147,7 +147,6 @@
     })])
   ));
   window.WWMWeaponIconRegistry = publicRegistry;
-  /* Backwards-compatible file lookup for existing consumers. */
   window.WWMWeaponIcons = Object.freeze(Object.fromEntries(
     Object.entries(ICONS).map(([slug, meta]) => [slug, meta.file])
   ));
@@ -206,7 +205,6 @@
 
     const current = img.getAttribute('src') || '';
     const slug = explicitSlug || img.dataset.weaponSlug || slugFromSource(current);
-    /* Critical: non-weapon skill/path artwork is left completely alone. */
     if (!slug || !ICONS[slug]) return;
 
     applyOptics(frame, img, slug);
