@@ -9,6 +9,39 @@
     const css = document.createElement('link'); css.rel='stylesheet'; css.href=`${root}assets/css/expansion.css?v=complete3`; document.head.appendChild(css);
   }
 
+  /* Weapon pages were historically created at different times and therefore
+     load different icon-fix cache versions (and some older pages load none at
+     all). Normalize every weapon-facing surface here so ALL weapon icons use
+     the current auto-fit system without having to maintain per-page versions. */
+  const ensureLatestWeaponIconSystem = () => {
+    const path = location.pathname;
+    const weaponSurface = path.includes('/database/martial-arts/') ||
+      path.includes('/database/weapons/') ||
+      path.includes('/database/martial-paths/');
+    if (!weaponSurface) return;
+
+    const iconCssHref = `${root}assets/css/icon-fix.css?v=icons-autofit7`;
+    const existingCss = document.querySelector('link[rel="stylesheet"][href*="icon-fix.css"]');
+    if (existingCss) existingCss.href = iconCssHref;
+    else {
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = iconCssHref;
+      document.head.appendChild(css);
+    }
+
+    const existingScripts = Array.from(document.querySelectorAll('script[src*="icon-fix.js"]'));
+    const hasLatest = existingScripts.some(script => (script.getAttribute('src') || '').includes('icons-autofit7'));
+    if (!hasLatest) {
+      const script = document.createElement('script');
+      script.src = `${root}assets/js/icon-fix.js?v=icons-autofit7`;
+      script.dataset.sharedWeaponIconLoader = '1';
+      document.body.appendChild(script);
+    }
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ensureLatestWeaponIconSystem, { once:true });
+  else ensureLatestWeaponIconSystem();
+
   const nav = [
     ['Home','index.html',[]],
     ['General','guides/getting-started/beginner-guide.html',[
