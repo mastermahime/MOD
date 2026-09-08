@@ -48,8 +48,8 @@
   position:absolute!important;
   left:12px!important;
   top:50%!important;
-  width:52px!important;
-  height:52px!important;
+  width:68px!important;
+  height:68px!important;
   transform:translateY(-50%)!important;
   border:1px solid #514334!important;
   background:#111!important;
@@ -57,10 +57,11 @@
   pointer-events:none!important
 }
 
-/* Same optical scale is used in the 52px partner frame and the larger page
-   frames, so a weapon keeps the same silhouette proportions everywhere. */
-.shared-weapon-icon>img[data-weapon-slug]{padding:4%!important}
+/* Partner cards intentionally use a smaller frame than the page hero, but it
+   is large enough that the canonical silhouette no longer looks miniature. */
+.shared-weapon-icon>img[data-weapon-slug]{padding:3%!important}
 
 @media(max-width:600px){
   .shared-weapon-frame>img[data-weapon-slug]{padding:4%!important}
+  .shared-weapon-icon{width:64px!important;height:64px!important}
 }
