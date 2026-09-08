@@ -33,7 +33,7 @@
 .build-rotation li{margin:7px 0}
 .weapon-index-path{display:block;margin-top:3px!important;color:#b68a58!important;font-size:10px!important}
 .weapon-index-guide{display:inline-block;margin-top:6px;padding:2px 5px;border:1px solid #4d4034;color:#aaa!important;font-size:9px!important;text-transform:uppercase;letter-spacing:.08em}
-.weapon-guide-meta .weapon-guide-link:not([href*="../martial-paths/"]){position:relative;min-height:76px;padding:12px 14px 12px 80px;display:flex;flex-direction:column;justify-content:center}
+.weapon-guide-meta .weapon-guide-link:not([href*="../martial-paths/"]){position:relative;min-height:92px;padding:12px 14px 12px 96px;display:flex;flex-direction:column;justify-content:center}
 .weapon-guide-meta .weapon-guide-link:not([href*="../martial-paths/"])::before{display:none!important;content:none!important;background-image:none!important}
 @media(max-width:800px){.weapon-build-grid{grid-template-columns:1fr}.build-hub-grid{grid-template-columns:1fr}.build-guide-columns{grid-template-columns:1fr}}
-@media(max-width:600px){.weapon-guide-quick{grid-template-columns:1fr}.weapon-guide-icon{width:90px;height:90px}.weapon-guide-meta{grid-template-columns:1fr}.build-mode-links{grid-template-columns:1fr}}
+@media(max-width:600px){.weapon-guide-quick{grid-template-columns:1fr}.weapon-guide-icon{width:90px;height:90px}.weapon-guide-meta{grid-template-columns:1fr}.build-mode-links{grid-template-columns:1fr}.weapon-guide-meta .weapon-guide-link:not([href*="../martial-paths/"]){min-height:88px;padding-left:92px}}
