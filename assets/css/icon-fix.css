@@ -1,34 +1,94 @@
-/* Universal weapon / martial-art icon alignment.
-   Keep every weapon icon centered and contained in every icon slot. */
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon){position:relative;display:grid;place-items:center;overflow:hidden}
-:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;padding:4px!important;object-fit:contain!important;object-position:center center!important;transform:none!important;transform-origin:center center!important;filter:none!important;opacity:1!important;visibility:visible!important;image-rendering:auto!important;z-index:2!important}
+/* Shared weapon icon system.
+   icon-fix.js now owns the canonical asset for every weapon; this stylesheet
+   gives those assets the same centering and relative fill everywhere. */
+:root{--weapon-icon-padding:4%}
 
-/* Higher-specificity overrides beat older weapon-guides.css copies that may be
-   loaded later by weapon-build-guides.js. */
-.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;padding:4px!important;object-fit:contain!important;object-position:center center!important;transform:none!important;filter:none!important;opacity:1!important;visibility:visible!important;image-rendering:auto!important;z-index:2!important}
-.wiki-icon-frame.wiki-icon-frame>img,.weapon-path-icon.weapon-path-icon>img,.skill-path-icon.skill-path-icon>img,.martial-path-icon.martial-path-icon>img{object-fit:contain!important;object-position:center center!important;transform:none!important;visibility:visible!important}
+:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon,.shared-weapon-icon){position:relative;display:grid;place-items:center;overflow:hidden}
+
+:where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon,.shared-weapon-icon)>img{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:var(--weapon-icon-padding)!important;
+  box-sizing:border-box!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+  transform-origin:center center!important;
+  filter:none!important;
+  opacity:1!important;
+  visibility:visible!important;
+  image-rendering:auto!important;
+  z-index:2!important
+}
+
+/* Beat old weapon-guides.css rules even when that stylesheet is injected
+   after this one by weapon-build-guides.js. */
+.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:var(--weapon-icon-padding)!important;
+  box-sizing:border-box!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+  filter:none!important;
+  opacity:1!important;
+  visibility:visible!important;
+  image-rendering:auto!important;
+  z-index:2!important
+}
+
+.wiki-icon-frame.wiki-icon-frame>img,
+.weapon-path-icon.weapon-path-icon>img,
+.skill-path-icon.skill-path-icon>img,
+.martial-path-icon.martial-path-icon>img{
+  padding:var(--weapon-icon-padding)!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+  visibility:visible!important
+}
 
 :where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>.icon-fallback,
 :where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>.weapon-guide-fallback,
 :where(.wiki-icon-frame,.weapon-guide-icon,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>.martial-path-fallback{display:none!important}
 
-/* Old weapon-guide pseudo-image replacements caused inconsistent crops. */
-.weapon-guide-icon.weapon-guide-icon::after{display:none!important;content:none!important;background-image:none!important}
-.weapon-guide-meta .weapon-guide-link:not([href*="../martial-paths/"])::before{background-repeat:no-repeat!important;background-position:center center!important;background-size:86% 86%!important}
+/* Disable the old per-weapon pseudo overlays. They duplicated icon mappings
+   and were the reason the same weapon could show a different image by page. */
+.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon::after{
+  display:none!important;
+  content:none!important;
+  background-image:none!important
+}
 
-/* Strategic Sword: always use the clean white transparent asset, including
-   quick-guide and Default Partner slots that are generated dynamically. */
-.weapon-guide-icon.weapon-guide-icon:has(img[src*="strategic-sword"])>img{visibility:hidden!important}
-.weapon-guide-icon.weapon-guide-icon:has(img[src*="strategic-sword"])::after{display:block!important;content:""!important;position:absolute!important;inset:0!important;z-index:4!important;background-image:url("../icons/martial-arts/strategic-sword-clean.svg?v=strategic-final1")!important;background-repeat:no-repeat!important;background-position:center center!important;background-size:92% 92%!important;pointer-events:none!important}
-.weapon-guide-link[href$="strategic-sword.html"]::before{background-image:url("../icons/martial-arts/strategic-sword-clean.svg?v=strategic-final1")!important;background-size:86% 86%!important}
-
-/* Crisp vector icons can fill a little more of the slot without clipping. */
-:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="inkwell-fan"],
-:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="panacea-fan"],
-:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="vernal-umbrella"],
-:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="mortal-rope-dart"],
-:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="skygrasp-rope-dart"],
-:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="stormbreaker-spear"],
-:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="heavenwill-gauntlets"],
-:where(.wiki-icon-frame,.weapon-path-icon,.skill-path-icon,.martial-path-icon)>img[src*="skystrike-gauntlets"]{padding:2px!important}
-.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="inkwell-fan"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="panacea-fan"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="vernal-umbrella"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="mortal-rope-dart"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="skygrasp-rope-dart"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="stormbreaker-spear"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="heavenwill-gauntlets"],.weapon-guide-icon.weapon-guide-icon.weapon-guide-icon>img[src*="skystrike-gauntlets"]{padding:2px!important}
+/* Default Partner now receives a real image from the same JS registry used by
+   the large weapon icon, instead of a separate hard-coded CSS background. */
+.weapon-guide-meta .weapon-guide-link:not([href*="../martial-paths/"]){position:relative}
+.weapon-guide-meta .weapon-guide-link.has-shared-weapon-icon::before{
+  display:none!important;
+  content:none!important;
+  background-image:none!important
+}
+.shared-weapon-icon{
+  position:absolute!important;
+  left:12px!important;
+  top:50%!important;
+  width:52px!important;
+  height:52px!important;
+  transform:translateY(-50%)!important;
+  border:1px solid #514334!important;
+  background:#111!important;
+  box-sizing:border-box!important;
+  pointer-events:none!important
+}
+.shared-weapon-icon>img{padding:var(--weapon-icon-padding)!important}
