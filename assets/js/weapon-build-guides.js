@@ -1,9 +1,20 @@
 (() => {
   const root = document.body.dataset.root || '../../';
-  const css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = `${root}assets/css/weapon-guides.css?v=1`;
-  document.head.appendChild(css);
+  const GUIDE_VERSION = 'icons-optical-20260908';
+  if (!document.querySelector('link[rel="stylesheet"][href*="weapon-guides.css"]')) {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = `${root}assets/css/weapon-guides.css?v=${GUIDE_VERSION}`;
+    document.head.appendChild(css);
+  }
+
+  const weaponIconMarkup = slug => {
+    const registryEntry = window.WWMWeaponIconRegistry?.[slug];
+    const legacyEntry = window.WWMWeaponIcons?.[slug];
+    const file = registryEntry?.file || (typeof legacyEntry === 'string' ? legacyEntry : legacyEntry?.file);
+    const src = file ? ` src="${root}assets/icons/martial-arts/${file}?v=${window.WWMWeaponIconVersion || GUIDE_VERSION}"` : '';
+    return `<img data-weapon-slug="${slug}"${src} alt="">`;
+  };
 
   const mysticSlug = {
     'Tai Chi':'tai-chi','Cloud Steps':'cloud-steps','Meridian Touch':'meridian-touch','Guardian Palm':'guardian-palm',
@@ -154,8 +165,9 @@
     const table=content.querySelector('.wiki-table');
     const quick=document.createElement('div'); quick.className='weapon-guide-quick';
     const initials=name.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase();
-    quick.innerHTML=`<div class="weapon-guide-icon"><span class="weapon-guide-fallback">${initials}</span><img src="${root}assets/icons/martial-arts/${slug}.png" alt="" onerror="this.style.display='none'"></div><div class="weapon-guide-meta"><a class="weapon-guide-link" href="../martial-paths/${pathSlug}.html"><small>Default Martial Path</small><strong>${p.name}</strong></a><a class="weapon-guide-link" href="${partnerSlug}.html"><small>Default Partner</small><strong>${partnerName}</strong></a></div>`;
+    quick.innerHTML=`<div class="weapon-guide-icon"><span class="weapon-guide-fallback">${initials}</span>${weaponIconMarkup(slug)}</div><div class="weapon-guide-meta"><a class="weapon-guide-link" href="../martial-paths/${pathSlug}.html"><small>Default Martial Path</small><strong>${p.name}</strong></a><a class="weapon-guide-link" href="${partnerSlug}.html"><small>Default Partner</small><strong>${partnerName}</strong></a></div>`;
     if(table) table.insertAdjacentElement('afterend',quick); else content.prepend(quick);
+    window.WWMWeaponIconSystem?.normalize(quick);
     if(!document.getElementById('weapon-builds')){
       const section=document.createElement('section'); section.id='weapon-builds';
       section.innerHTML=`<h2>Builds Using ${name}</h2><div class="weapon-build-grid"><a class="weapon-build-card" href="${root}guides/builds/${pathSlug}.html"><span class="build-badge">Default</span><strong>${p.name} Core Build</strong><p>${p.weapons[0][0]} + ${p.weapons[1][0]}. The standard build for this Martial Path.</p></a><a class="weapon-build-card" href="${root}guides/builds/variant.html?path=${pathSlug}&mode=pvp"><span class="build-badge">PvP</span><strong>${p.name} PvP</strong><p>Pressure, survivability and player-versus-player priorities for this weapon pair.</p></a><a class="weapon-build-card" href="${root}guides/builds/variant.html?path=${pathSlug}&mode=solo"><span class="build-badge">Solo</span><strong>${p.name} Solo / Open World</strong><p>A safer all-purpose version for quests, exploration, bosses and general play.</p></a></div>`;
