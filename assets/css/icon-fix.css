@@ -51,14 +51,16 @@
   width:var(--quick-weapon-icon-size,108px)!important;
   height:var(--quick-weapon-icon-size,108px)!important;
   transform:translateY(-50%)!important;
-  border:1px solid #514334!important;
-  background:#111!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
   box-sizing:border-box!important;
   pointer-events:none!important
 }
 
-/* Main and Default Partner images intentionally share the exact same
-   padding and per-weapon optical scale/offset rules. */
+/* The partner holder stays the same 108/90px optical area as the main icon,
+   but it is visually transparent so the Default Partner link is one card,
+   not a bordered square nested inside another bordered card. */
 @media(max-width:600px){
   .shared-weapon-frame>img[data-weapon-slug]{padding:4%!important}
 }
