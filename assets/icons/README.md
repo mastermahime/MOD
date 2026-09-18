@@ -7,11 +7,14 @@ Upload a square PNG or WebP using the page slug as the filename. PNG is the defa
 Examples:
 
 - `assets/icons/martial-arts/nameless-sword.png`
+- `assets/icons/martial-paths/bellstrike-umbra.png`
 - `assets/icons/inner-ways/battle-anthem.png`
 - `assets/icons/mystic-skills/tai-chi.png`
 - `assets/icons/gear-sets/jadeware.png`
 - `assets/icons/weapons/sword.png`
 
-Recommended image size: 128x128 to 256x256 with a transparent background.
+Recommended image size: 128×128 to 256×256 with a transparent background.
 
-If an icon file is missing, the page shows a built-in fallback symbol instead of a broken image. This means the HTML does not need to be edited when you add an icon later: upload the correctly named file and refresh the site.
+**Missing icons**
+If an icon file is missing, the icon frame stays empty (dark background, no letter placeholder).  
+Just upload the correctly named file and hard-refresh the site — no HTML changes needed.
