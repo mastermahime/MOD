@@ -30,6 +30,14 @@
   z-index:2!important
 }
 
+/* Global policy: never show letter fallbacks. Empty frames are intentional
+   so adding real PNGs later is clean and requires no HTML edits. */
+.icon-fallback,
+.weapon-guide-fallback,
+.martial-path-fallback{
+  display:none!important
+}
+
 .shared-weapon-frame>.icon-fallback,
 .shared-weapon-frame>.weapon-guide-fallback,
 .shared-weapon-frame>.martial-path-fallback{display:none!important}
